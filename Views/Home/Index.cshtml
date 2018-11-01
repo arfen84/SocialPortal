@@ -1,0 +1,188 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model SocialPortal.Models.MainViewModel
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<div class="container">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" style="margin:0;margin-top:22px;">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <a href="@Model.slide.link1">
+                <img src="~/images/baner1.jpg" alt="ASP.NET" class="img-responsive" />
+            </a>
+            <div class="carousel-caption" role="option">
+                <h1>@Model.slide.title1</h1>
+                <p>
+                   @Model.slide.desc1
+                </p>
+            </div>
+        </div>
+        <div class="item">
+            <a href="@Model.slide.link2">
+                <img src="~/images/baner2.jpg" alt="Visual Studio" class="img-responsive" />
+            </a>
+            <div class="carousel-caption" role="option">
+                <h1>@Model.slide.title2</h1>
+                <p>
+                    @Model.slide.desc2
+                </p>
+            </div>
+        </div>
+        <div class="item">
+            <a href="@Model.slide.link3">
+                <img src="~/images/baner3.jpg" alt="Package Management" class="img-responsive" />
+                </a>
+                <div class="carousel-caption" role="option">
+                    <h1>@Model.slide.title3</h1>
+                    <p>
+                        @Model.slide.desc3
+                    </p>
+                </div>
+        </div>
+       
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+</div>
+
+<div class="container">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-10" style="border-right: 1px solid #eee;">
+            <div class="row" id="utwory">
+                <h3>Utwory</h3>
+                @foreach (var last in Model.utwory)
+            {
+                    <div class="col-md-3 flex">
+
+                        @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                            String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                        }
+
+                        <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                        <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"><h4>@Html.DisplayFor(m => last.Name)</h4></a>
+                    </div>
+                            }
+
+            </div>
+            <div style="clear:both;"></div>
+            <hr />
+            <div class="row" id="wykonawcy">
+                <h3>Wykonawcy</h3>
+                @foreach (var last in Model.wykonawcy)
+            {
+                    <div class="col-md-2 flex">
+
+                        @{String @imgSrc = @last.Photo.Split(';')[0];}
+                        <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                        <a asp-controller="@last.Controller" asp-action="Details" asp-route-id="@last.ID"><h4>@Html.DisplayFor(m => last.Name)</h4></a>
+                    </div>
+                            }
+            </div>
+            <div style="clear:both;"></div>
+            <hr />
+            <div class="row" id="wydarzenia">
+                <h3>Wydarzenia</h3>
+                @foreach (var last in Model.wydarzenia)
+            {
+                    <div class="col-md-2 flex">
+
+                        @{String @imgSrc = @last.Photos.Split(';')[0];}
+                        <a asp-controller="Event" asp-action="Details" asp-route-id="@last.ID">
+                            <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                            <h4>@Html.DisplayFor(m => last.Name)</h4>
+                        </a>
+                    </div>
+                            }
+            </div>
+            <div style="clear:both;"></div>
+            <hr />
+        </div>
+        <div class="col-md-2" style="border:none;margin:0;padding:0;">
+
+            <h3 style="text-align:center;">TOP 5</h3>
+            @foreach (var last in Model.top10.Take(5))
+            {
+                <div class="col-md-12 ">
+
+                    @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                        String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                    }
+
+                    <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                    <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"><h4>@Html.DisplayFor(m => last.Name)</h4></a>
+                </div>
+                <div style="clear:both;"></div>
+                        }
+
+        </div>
+        <div class="col-md-12">
+            <div class="row" id="relacje">
+                <h3>Relacje</h3>
+                @foreach (var last in Model.relacje)
+            {
+                    <div class="col-md-2 flex">
+
+                        @{String @imgSrc = @last.Photos.Split(';')[0];}
+                        <a asp-controller="Relacja" asp-action="Details" asp-route-id="@last.ID">
+                            <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                            <h4>@Html.DisplayFor(m => last.Name)</h4>
+                        </a>
+                    </div>
+                            }
+            </div>
+            <div style="clear:both;"></div>
+            <hr />
+            <div class="row" id="albumy">
+                <h3>Albumy</h3>
+                @foreach (var last in Model.albumy)
+            {
+                    <div class="col-md-2 flex">
+
+                        @{String @imgSrc = @last.Photos.Split(';')[0];}
+                        <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                        <a asp-controller="Album" asp-action="Details" asp-route-id="@last.ID"><h4>@Html.DisplayFor(m => last.Name)</h4></a>
+                    </div>
+                            }
+            </div>
+            <div style="clear:both;"></div>
+            <hr />
+
+        </div>
+
+    </div>
+
+
+
+    <ul class="nav nav-tabs" style="display:table;    margin:0px auto 0px auto;">
+        <li>
+            <a asp-controller="Home" asp-action="Podziel" ><img src="/images/utwory.png" alt="utwory" class="img-responsive" style="height:80px;margin: 0 auto;" /> <h3>Utwory</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="Podziel" ><img src="/images/wykonawcy.png" alt="wykonawcy" class="img-responsive" style="height:80px;margin: 0 auto;"  /> <h3>Wykonawcy</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="Podziel" ><img src="/images/wydarzenia.png" alt="wydarzenia" class="img-responsive" style="height:80px;margin: 0 auto;"  /> <h3>Wydarzenia</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="Podziel"><img src="/images/teksty.png" alt="teksty" class="img-responsive" style="height:80px;margin: 0 auto;"  /> <h3>Teksty</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="Podziel"><img src="/images/albumy.png" alt="albumy" class="img-responsive" style="height:80px;margin: 0 auto;"  /> <h3>Albumy</h3></a>
+        </li>
+    </ul>
+
+</div>

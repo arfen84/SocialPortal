@@ -1,0 +1,1240 @@
+﻿@model SocialPortal.Models.podzielViewModel
+@*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" rel="stylesheet" />
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" type="text/css" />
+<script src="https://code.jquery.com/jquery-2.2.2.js"></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.1/jquery.timepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.1/jquery.timepicker.min.css" type="text/css" />*@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />*@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>*@
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+<!-- Bootstrap Date-Picker Plugin -->
+@*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />*@
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/css/Jcrop.min.css" />
+
+
+@*<script type="text/javascript" src="~/js/Jcrop/js/jquery.Jcrop.min.js"></script>*@
+
+<script type="text/javascript">
+        @*$(function () { // will trigger when the document is ready
+            $('.datepicker').datepicker(); //Initialise any date pickers
+    });*@
+    //$("#hour").datetimepicker({
+    //    datepicker: false,
+    //    format: 'H:i'
+    //});
+    //jQuery('#hour').datetimepicker({
+    //    format: 'Y/m/d A g:i',
+    //    formatTime: 'A g:i',
+    //});
+
+    //$('#hour').datetimepicker({
+    //    datepicker: false,
+    //    format: 'H:i'
+    //});
+
+
+    //$('#year').datepicker({
+    //    format: "yyyy",
+    //    viewMode: "years",
+    //    minViewMode: "years"
+    //});
+    //var date_input = $('input[name="utwor.Year"]'); //our date input has the name "date"
+
+    //var options = {
+    //    format: 'yyyy',
+    //    todayHighlight: true,
+    //    autoclose: true,
+    //};
+    //date_input.datepicker(options);
+
+
+    $(document).ready(function () {
+        var $fields = $('#fields');
+        $('#btnAddField').click(function (e) {
+            $('@Html.TextBoxFor(x => x.autor.Discs, new { @class = "full form-control" })').appendTo($fields);
+        });
+
+
+
+
+    });
+
+
+    var imageCropWidth = 0;
+
+    var imageCropHeight = 0;
+
+    var cropPointX = 0;
+
+    var cropPointY = 0;
+
+    var jcropApi;
+
+    $(document).ready(function () {
+
+       // initCrop();
+
+    });
+
+    function initCrop() {
+        var images = $('.pictures').each(function (index, value) {
+
+            $('#' + value.id.toString()).Jcrop({
+
+                onChange: setCoordsAndImgSize,
+
+               // aspectRatio: 0, // 1 means will be same for height and weight
+
+    setSelect: [0,0,500,300],
+    aspectRatio: 500/300,
+    allowResize: false,
+    onSelect: setCoordsAndImgSize,
+    boxWidth: 1500, boxHeight: 500
+
+            }, function () { jcropApi = this });
+
+
+        });
+    }
+
+    //function initCrop() {
+    //    var images = $('.pictures').each(function (index, value) {
+    //        console.log('#' + value.id.toString());
+    //        $('#imgg1').Jcrop({
+
+    //            onChange: setCoordsAndImgSize,
+
+    //            aspectRatio: 0, // 1 means will be same for height and weight
+
+    //            onSelect: setCoordsAndImgSize
+
+    //        }, function () { jcropApi = this });
+
+
+    //    });
+
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+    function showCoordinate() {
+
+        $("#lblWidth").text(imageCropWidth + "px");
+
+        $("#lblHeight").text(imageCropHeight + "px");
+
+    }
+
+    function setCoordsAndImgSize(e) {
+
+        imageCropWidth = e.w;
+
+        imageCropHeight = e.h;
+
+        cropPointX = e.x;
+
+        cropPointY = e.y;
+
+        //console.log(e);
+
+        var images3 = $('.labHeight').each(function (index, value) {
+            //alert(value.id.toString());
+
+            $('#' + value.id.toString()).text(imageCropHeight + "px");
+        })
+        var images2 = $('.labWidth').each(function (index, value) {
+            $('#' + value.id.toString()).text(imageCropWidth + "px");
+
+        })
+
+        //$("#lblWidth").text(imageCropWidth + "px");
+
+        //$("#lblHeight").text(imageCropHeight + "px");
+
+    }
+
+
+
+    function cropImage(id) {
+
+        if (imageCropWidth == 0 && imageCropHeight == 0) {
+
+            alert("Please select crop area.");
+
+            return;
+
+        }
+
+        var img = $("#"+id).attr("src");
+
+        /*Show cropped image*/
+
+        showCroppedImage(id);
+
+    }
+
+    function showCroppedImage(id) {
+
+        var x1 = cropPointX;
+
+        var y1 = cropPointY;
+
+        var width = imageCropWidth;
+
+        var height = imageCropHeight;
+
+
+
+
+        var canvas = $("#canvas"+id)[0];
+
+        var context = canvas.getContext('2d');
+
+        var img = new Image();
+
+        img.onload = function () {
+
+            canvas.height = height;
+
+            canvas.width = width;
+
+            context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
+
+            $('#avatarCropped'+id).val(canvas.toDataURL());
+
+        };
+
+        img.src = $('#img'+id).attr("src");
+
+    }
+
+    function readFile(input, image) {
+        var cos = image.split(';'); var i = 0;
+
+        $.each(input, function (index, value) {
+        //if (input.files && input.files[0]) {
+            if (input.files && input.files[i]) {
+                //console.log(input.files[i].name);
+
+            var reader = new FileReader();
+
+            /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+
+            if (jcropApi != null) {
+
+                jcropApi.destroy();
+
+            }
+
+            var strin = '#' + cos[i].toString();
+            reader.onload = function (e) {
+
+                $('#imgEmpPhoto').attr('src', "");
+                //alert(input);
+
+
+                //alert(i);
+                var img = $(strin.toString()).attr('src', e.target.result);
+
+                /*Current uploaded image size*/
+
+                var width = img[0].height;
+
+                var height = img[0].width;
+
+                $("#lblWidth" + i.toString()).text(width + "px");
+
+                $("#lblHeight" + i.toString()).text(height + "px");
+
+                //InitCrop must call here otherwise it will not work
+
+
+
+            }
+
+            reader.readAsDataURL(input.files[i]);
+            i++;
+
+        }
+        });
+
+        setTimeout("initCrop();", 1000);
+
+        }
+
+
+    $(document).ready(function () {
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+        $("#hlcropImage").on("click", function (e) {
+            alert(this.id);
+            e.preventDefault();
+        });
+
+    $('#flPhoto1').change(function () {
+        $("#authorForm").find("input[type=file]").each(function (index, field) {
+            $('#imageToCrop1').html("");
+            $('#imageToCrop2').html("");
+            $('#imageToCrop3').html("");
+            $('#imageToCrop4').html("");
+            $('#imageToCrop5').html("");
+            var i = 1; var str = "";
+           $.each(field.files, function (index, value) {
+               var img = "img" + i.toString();
+               $('#imageToCrop1').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString()+'">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString()+'">200px</label><img class="pictures" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i +'" height="5" width="5" style="vertical- align:top; width: 100 %;"></canvas><input type="hidden" name="avatarCropped'+i+'" id="avatarCropped'+i+'" />');
+               str = str+ img+";"
+               i++;
+            });
+           readFile(this, str);
+        });
+    });
+    });
+
+    $(document).ready(function () {
+
+
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+
+
+        $("#hlcropImage").on("click", function (e) {
+
+          
+            alert(this.id);
+
+            e.preventDefault();
+
+  
+        });
+
+        $('#flPhoto2').change(function () {
+
+            // readFile(this);
+         
+
+            $("#zespolForm").find("input[type=file]").each(function (index, field) {
+                $('#imageToCrop1').html("");
+                $('#imageToCrop2').html("");
+                $('#imageToCrop3').html("");
+                $('#imageToCrop4').html("");
+                $('#imageToCrop5').html("");
+                var i = 1; var str = "";
+                $.each(field.files, function (index, value) {
+
+                    var img = "img" + i.toString();
+                    $('#imageToCrop2').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString() + '">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString() + '">200px</label><img class="pictures" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i + '" height="5" width="5" style="vertical- align:top; width: 100 %;"></canvas><input type="hidden" name="avatarCropped' + i + '" id="avatarCropped' + i + '" />');
+                    str = str + img + ";"
+                    i++;
+
+                });
+
+                readFile(this, str);
+
+            });
+            //initCrop();
+        });
+    });
+
+    $(document).ready(function () {
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+        $("#hlcropImage").on("click", function (e) {
+            alert(this.id);
+            e.preventDefault();
+        });
+
+        $('#flPhoto3').change(function () {
+            $("#eventForm").find("input[type=file]").each(function (index, field) {
+                $('#imageToCrop1').html("");
+                $('#imageToCrop2').html("");
+                $('#imageToCrop3').html("");
+                $('#imageToCrop4').html("");
+                $('#imageToCrop5').html("");
+                var i = 1; var str = "";
+                $.each(field.files, function (index, value) {
+                    var img = "img" + i.toString();
+                    $('#imageToCrop3').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString() + '">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString() + '">200px</label><img class="pictures" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i + '" height="5" width="5" style="vertical- align:top; width: 100 %;"></canvas><input type="hidden" name="avatarCropped' + i + '" id="avatarCropped' + i + '" />');
+                    str = str + img + ";"
+                    i++;
+                });
+                readFile(this, str);
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+        $("#hlcropImage").on("click", function (e) {
+            alert(this.id);
+            e.preventDefault();
+        });
+
+        $('#flPhoto4').change(function () {
+            $("#relacjaForm").find("input[type=file]").each(function (index, field) {
+                $('#imageToCrop1').html("");
+                $('#imageToCrop2').html("");
+                $('#imageToCrop3').html("");
+                $('#imageToCrop4').html("");
+                $('#imageToCrop5').html("");
+                var i = 1; var str = "";
+                $.each(field.files, function (index, value) {
+                    var img = "img" + i.toString();
+                    $('#imageToCrop4').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString() + '">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString() + '">200px</label><img class="pictures" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i + '" height="5" width="5" style="vertical- align:top; width: 100 %;"></canvas><input type="hidden" name="avatarCropped' + i + '" id="avatarCropped' + i + '" />');
+                    str = str + img + ";"
+                    i++;
+                });
+                readFile(this, str);
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+        $("#hlcropImage").on("click", function (e) {
+            alert(this.id);
+            e.preventDefault();
+        });
+
+        $('#flPhoto5').change(function () {
+            $("#albumForm").find("input[type=file]").each(function (index, field) {
+                $('#imageToCrop1').html("");
+                $('#imageToCrop2').html("");
+                $('#imageToCrop3').html("");
+                $('#imageToCrop4').html("");
+                $('#imageToCrop5').html("");
+                var i = 1; var str = "";
+                $.each(field.files, function (index, value) {
+                    var img = "img" + i.toString();
+                    $('#imageToCrop5').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString() + '">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString() + '">200px</label><img class="pictures" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i + '" height="5" width="5" style="vertical- align:top; width: 100 %;"></canvas><input type="hidden" name="avatarCropped' + i + '" id="avatarCropped' + i + '" />');
+                    str = str + img + ";"
+                    i++;
+                });
+                readFile(this, str);
+            });
+        });
+    });
+
+
+
+
+
+    $(document).ready(function () {
+        var $fields = $('#fieldsZespol');
+        $('#btnAddFieldZespol').click(function (e) {
+            $('@Html.TextBoxFor(x => x.zespol.Discs, new { @class = "full form-control" })').appendTo($fields);
+        });
+
+
+
+    });
+
+    $(document).ready(function () {
+        var $fields = $('#fieldsAlbum');
+        $('#btnAddFieldAlbum').click(function (e) {
+            $('@Html.TextBoxFor(x => x.album.Tracks, new { @class = "full form-control" })').appendTo($fields);
+        });
+    });
+
+    $(document).ready(function () {
+        var $fields = $('#gatunekUtworAdd');
+        $('#gatunekUtwor').change(function (e) {
+            if ($(this).val() == "") {
+
+                    $('@Html.TextBoxFor(x => x.utwor.Type, new { @class = "form-control mini" })').appendTo($fields);
+                    $(this).addClass('firstMini');
+
+            }
+            else {
+                $fields.empty();
+                $(this).removeClass('firstMini');
+            }
+
+        });
+    });
+
+    $(document).ready(function () {
+        var $fields = $('#gatunekTekstAdd');
+        $('#gatunekTekst').change(function (e) {
+            if ($(this).val() == "") {
+            $('@Html.TextBoxFor(x => x.tekst.Genre, new { @class = "form-control mini" })').appendTo($fields);
+            $(this).addClass('firstMini');
+            }
+            else {
+                $fields.empty();
+                $(this).removeClass('firstMini');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        var $fields = $('#gatunekAlbumAdd');
+        $('#gatunekAlbum').change(function (e) {
+            if ($(this).val() == "") {
+            $('@Html.TextBoxFor(x => x.album.Genre, new { @class = "form-control mini" })').appendTo($fields);
+            $(this).addClass('firstMini');
+            }
+            else {
+                $fields.empty();
+                $(this).removeClass('firstMini');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        var $fields = $('#rodzajUtworAdd');
+        $('#rodzajUtwor').change(function (e) {
+            if ($(this).val() == "") {
+            $('@Html.TextBoxFor(x => x.utwor.MusicType, new { @class = "form-control mini" })').appendTo($fields);
+            $(this).addClass('firstMini');
+            }
+            else {
+                $fields.empty();
+                $(this).removeClass('firstMini');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        var $fields = $('#rodzajTekstAdd');
+        $('#rodzajTekst').change(function (e) {
+            if ($(this).val() == "") {
+            $('@Html.TextBoxFor(x => x.tekst.Type, new { @class = "form-control mini" })').appendTo($fields);
+            $(this).addClass('firstMini');
+            }
+            else {
+                $fields.empty();
+                $(this).removeClass('firstMini');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        var $fields = $('#rodzajAlbumAdd');
+        $('#rodzajAlbum').change(function (e) {
+            if ($(this).val() == "") {
+            $('@Html.TextBoxFor(x => x.album.Type, new { @class = "form-control mini" })').appendTo($fields);
+            $(this).addClass('firstMini');
+            }
+            else {
+                $fields.empty();
+                $(this).removeClass('firstMini');
+            }
+        });
+    });
+
+
+</script>
+
+<div id="Tab" class="container">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#1" data-toggle="tab"><img src="/images/utwory.png" alt="utwory" class="img-responsive" style="height:100px;" /> <h3>Utwory</h3></a>
+        </li>
+        <li>
+            <a href="#2" data-toggle="tab"><img src="/images/wykonawcy.png" alt="wykonawcy" class="img-responsive" style="height:100px;" /> <h3>Wykonawcy</h3></a>
+        </li>
+        <li>
+            <a href="#3" data-toggle="tab"><img src="/images/wydarzenia.png" alt="wydarzenia" class="img-responsive" style="height:100px;" /> <h3>Wydarzenia</h3></a>
+        </li>
+        <li>
+            <a href="#4" data-toggle="tab"><img src="/images/teksty.png" alt="teksty" class="img-responsive" style="height:100px;" /> <h3>Teksty</h3></a>
+        </li>
+        <li>
+            <a href="#5" data-toggle="tab"><img src="/images/albumy.png" alt="albumy" class="img-responsive" style="height:100px;" /> <h3>Albumy</h3></a>
+        </li>
+    </ul>
+    <br />
+    <div class="tab-content ">
+        <div class="tab-pane active" id="1">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="utworForm" asp-controller="Utwor" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.Name" class="control-label"></label>
+                            <input asp-for="@Model.utwor.Name" class="form-control" />
+                            <span asp-validation-for="@Model.utwor.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.Author" class="control-label"></label>
+                            <input asp-for="@Model.utwor.Author" class="form-control" />
+                            <span asp-validation-for="@Model.utwor.Author" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.Type" class="control-label"></label>
+                            @*<input asp-for="@Model.utwor.Type" class="form-control" />*@
+                            @Html.DropDownListFor(x => x.utwor.Type, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Gospel", Value="Gospel"},
+                        new SelectListItem() {Text = "Rock", Value="Rock"},
+                        new SelectListItem() {Text = "Pop", Value="Pop"},
+                        new SelectListItem() {Text = "Rap", Value="Rap"},
+                        new SelectListItem() {Text = "Hip-hop", Value="Hip-hop"},
+                        new SelectListItem() {Text = "Praise&worship", Value="Praise&worship"},
+                        new SelectListItem() {Text = "Bluess&jazz", Value="Bluess&jazz"},
+                        new SelectListItem() {Text = "Soul", Value="Soul"},
+                        new SelectListItem() {Text = "Ballada", Value="Ballada"},
+                        new SelectListItem() {Text = "Folk", Value="Folk"},
+                        new SelectListItem() {Text = "Poezja śpiewana", Value="Poezja śpiewana"},
+                        new SelectListItem() {Text = "Inny", Value=""},
+    }, new { @class = "form-control", id = "gatunekUtwor" })
+                            <div id="gatunekUtworAdd" ></div>
+                            <span asp-validation-for="@Model.utwor.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.MusicType" class="control-label"></label>
+                            @*<input asp-for="@Model.utwor.MusicType" class="form-control" />*@
+                            @Html.DropDownListFor(x => x.utwor.MusicType, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Chrześcijańska", Value="Chrześcijańska"},
+                        new SelectListItem() {Text = "Patriotyczna", Value="Patriotyczna"},
+                        new SelectListItem() {Text = "Inny", Value=""},
+    }, new { @class = "form-control", id = "rodzajUtwor" })
+                            <div id="rodzajUtworAdd"></div>
+                            <span asp-validation-for="@Model.utwor.MusicType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.Compositor" class="control-label"></label>
+                            <input asp-for="@Model.utwor.Compositor" class="form-control" />
+                            <span asp-validation-for="@Model.utwor.Compositor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.TextAuthor" class="control-label"></label>
+                            <input asp-for="@Model.utwor.TextAuthor" class="form-control" />
+                            <span asp-validation-for="@Model.utwor.TextAuthor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.DiscName" class="control-label"></label>
+                            <input asp-for="@Model.utwor.DiscName" class="form-control" />
+                            <span asp-validation-for="@Model.utwor.DiscName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.Year" class="control-label"></label>
+                            <input asp-for="@Model.utwor.Year" class="form-control" id="year" placeholder="YYYY" type="text" />
+                            @*@Html.TextBoxFor(model => model.utwor.Year, new { @class = "form-control datepicker" }))*@
+
+
+                            @*@Html.EditorFor(Model => Model.utwor.Year, "{yyyy}")*@
+                            <span asp-validation-for="@Model.utwor.Year" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.Description" class="control-label"></label>
+                            <textarea asp-for="@Model.utwor.Description" class="form-control" ></textarea>
+                            <span asp-validation-for="@Model.utwor.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.URL" class="control-label"></label>
+                            <input asp-for="@Model.utwor.URL" class="form-control" />
+                            <span asp-validation-for="@Model.utwor.URL" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.utwor.Text" class="control-label"></label>
+                            <textarea asp-for="@Model.utwor.Text" class="form-control" ></textarea>
+                            <span asp-validation-for="@Model.utwor.Text" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="test[]" value="1" required="required">Akceptuję <a asp-area="" asp-controller="Home" asp-action="Regulamin">regulamin</a>
+                            </label>
+                        </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Prześlij" class="btn btn-default" />
+                            </div>
+</form>
+                </div>
+            </div>
+            <div>
+               @* <a asp-action="Index">Powrót do listy</a>*@
+            </div>
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }
+
+
+
+
+
+
+        </div>
+        <div class="tab-pane" id="2">
+
+            <div id="Wykonawcy" class="container">
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a href="#1b" data-toggle="tab">Wykonawca</a>
+                    </li>
+                    <li>
+                        <a href="#2b" data-toggle="tab">Zespół</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active" id="1b">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="authorForm" asp-controller="Autor" asp-action="Create" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.autor.Name" class="control-label"></label>
+                                        <input asp-for="@Model.autor.Name" class="form-control" />
+                                        <span asp-validation-for="@Model.autor.Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.autor.Year" class="control-label"></label>
+                                        <input asp-for="@Model.autor.Year" class="form-control" type="text" />
+                                        <span asp-validation-for="@Model.autor.Year" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.autor.Awards" class="control-label"></label>
+                                        <input asp-for="@Model.autor.Awards" class="form-control" />
+                                        <span asp-validation-for="@Model.autor.Awards" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.autor.Discs" class="control-label"></label>
+                                        <div  style="width:80%;margin-left:20%;">
+                                            <input asp-for="@Model.autor.Discs" class="full form-control"  />
+                                            <input asp-for="@Model.autor.Discs" class="full form-control"  />
+                                            <input asp-for="@Model.autor.Discs" class="full form-control" />
+                                        </div>
+
+                                        <div id="fields" style="width:80%;margin-left:20%;"></div>
+                                        <div style="width:80%;margin-left:20%;">
+                                            <a id="btnAddField">Dodaj płytę</a>
+                                            </div>
+                                            <span asp-validation-for="@Model.autor.Discs" class="text-danger"></span>
+                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.autor.Description" class="control-label"></label>
+                                        <textarea asp-for="@Model.autor.Description" class="form-control" ></textarea>
+                                        <span asp-validation-for="@Model.autor.Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.autor.Link" class="control-label"></label>
+                                        <input asp-for="@Model.autor.Link" class="form-control" />
+                                        <span asp-validation-for="@Model.autor.Link" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.autor.Photos" class="control-label"></label>
+                                        <input id="flPhoto1" asp-for="@Model.autor.Photos" type="file" class="form-control-file" multiple="multiple" />
+                                        <span asp-validation-for="@Model.autor.Photos" class="text-danger"></span>
+
+                                       
+                                        <div id="imageToCrop1" style="height:100%; width:100%; overflow:auto;">
+                                        </div>
+
+                                        @*<div id="canv">
+                                            <canvas id="canvas" height="5" width="5" style="vertical-align:top;width: 100%;"></canvas>
+                                        </div>
+                                        <img id="imgCropped" src="#" style="display:none;" />*@
+                                    </div>
+
+                                   
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" name="test[]" value="1" required="required">Akceptuję <a asp-area="" asp-controller="Home" asp-action="Regulamin">regulamin</a>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Prześlij" class="btn btn-default" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="tab-pane" id="2b">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="zespolForm" asp-controller="Zespol" asp-action="Create" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Name" class="control-label"></label>
+                                        <input asp-for="@Model.zespol.Name" class="form-control" />
+                                        <span asp-validation-for="@Model.zespol.Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Team" class="control-label"></label>
+                                        <input asp-for="@Model.zespol.Team" class="form-control" />
+                                        <span asp-validation-for="@Model.zespol.Team" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Year" class="control-label"></label>
+                                        <input asp-for="@Model.zespol.Year" class="form-control" type="text" />
+                                        <span asp-validation-for="@Model.zespol.Year" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Awards" class="control-label"></label>
+                                        <input asp-for="@Model.zespol.Awards" class="form-control" />
+                                        <span asp-validation-for="@Model.zespol.Awards" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Discs" class="control-label"></label>
+
+                                        <div style="width:80%;margin-left:20%;">
+                                            <input asp-for="@Model.zespol.Discs" class="full form-control" />
+                                            <input asp-for="@Model.zespol.Discs" class="full form-control" />
+                                            <input asp-for="@Model.zespol.Discs" class="full form-control" />
+                                        </div>
+
+                                        <div id="fieldsZespol" style="width:80%;margin-left:20%;"></div>
+                                        <div style="width:80%;margin-left:20%;">
+                                            <a id="btnAddFieldZespol">Dodaj płytę</a>
+                                        </div>
+
+
+                                        <span asp-validation-for="@Model.zespol.Discs" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Description" class="control-label"></label>
+                                        <textarea asp-for="@Model.zespol.Description" class="form-control" ></textarea>
+                                        <span asp-validation-for="@Model.zespol.Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Link" class="control-label"></label>
+                                        <input asp-for="@Model.zespol.Link" class="form-control" />
+                                        <span asp-validation-for="@Model.zespol.Link" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.zespol.Photos" class="control-label"></label>
+                                        <input id="flPhoto2" asp-for="@Model.zespol.Photos" type="file" class="form-control-file" multiple="multiple" />
+                                        <span asp-validation-for="@Model.zespol.Photos" class="text-danger"></span>
+
+                                        <div id="imageToCrop2" style="height:100%; width:100%; overflow:auto;">
+                                        </div>
+
+                                        @*<div id="canv">
+                                            <canvas id="canvas" height="5" width="5" style="vertical- align:top;width: 100 %;"></canvas>
+                                        </div>
+                                        <img id="imgCropped" src="#" style="display:none;" />*@
+                                    </div>
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" name="test[]" value="1" required="required">Akceptuję <a asp-area="" asp-controller="Home" asp-action="Regulamin">regulamin</a>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Prześlij" class="btn btn-default" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+        <div class="tab-pane" id="3">
+
+
+
+
+            <div id="exTab3" class="container">
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a href="#1bb" data-toggle="tab">Wydarzenie</a>
+                    </li>
+                    <li>
+                        <a href="#2bb" data-toggle="tab">Relacja</a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active" id="1bb">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="eventForm" asp-controller="Event" asp-action="Create" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Name" class="control-label"></label>
+                                        <input asp-for="wydarzenie.Name" class="form-control" />
+                                        <span asp-validation-for="wydarzenie.Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Place" class="control-label"></label>
+                                        <input asp-for="wydarzenie.Place" class="form-control" />
+                                        <span asp-validation-for="wydarzenie.Place" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Date" class="control-label"></label>
+                                        <input asp-for="wydarzenie.Date" class="form-control" />
+                                        <span asp-validation-for="wydarzenie.Date" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Hour" class="control-label"></label>
+                                        <input id="hour" asp-for="wydarzenie.Hour" class="form-control" />
+                                     
+                                        <span asp-validation-for="wydarzenie.Hour" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Price" class="control-label"></label>
+                                        <input asp-for="wydarzenie.Price" class="form-control" />
+                                        <span asp-validation-for="wydarzenie.Price" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Description" class="control-label"></label>
+                                        <textarea asp-for="wydarzenie.Description" class="form-control" ></textarea>
+                                        <span asp-validation-for="wydarzenie.Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Artist" class="control-label"></label>
+                                        <input asp-for="wydarzenie.Artist" class="form-control" />
+                                        <span asp-validation-for="wydarzenie.Artist" class="text-danger"></span>
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.URL" class="control-label"></label>
+                                        <input asp-for="wydarzenie.URL" class="form-control" />
+                                        <span asp-validation-for="wydarzenie.URL" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Photos" class="control-label"></label>
+                                        <input id="flPhoto3" asp-for="wydarzenie.Photos" type="file" class="form-control-file" multiple="multiple"  />
+                                        <span asp-validation-for="wydarzenie.Photos" class="text-danger"></span>
+                                        <div id="imageToCrop3" style="height:100%; width:100%; overflow:auto;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="wydarzenie.Youtube" class="control-label"></label>
+                                        <input asp-for="wydarzenie.Youtube" class="form-control" />
+                                        <span asp-validation-for="wydarzenie.Youtube" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" name="test[]" value="1" required="required">Akceptuję <a asp-area="" asp-controller="Home" asp-action="Regulamin">regulamin</a>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Prześlij" class="btn btn-default" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="2bb">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="relacjaForm" asp-controller="Relacja" asp-action="Create" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                   
+                                    <div class="form-group">
+                                        <label asp-for="relacja.Name" class="control-label"></label>
+                                        <input asp-for="relacja.Name" class="form-control" />
+                                        <span asp-validation-for="relacja.Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="relacja.Artist" class="control-label"></label>
+                                        <textarea asp-for="relacja.Artist" class="form-control"></textarea>
+                                        <span asp-validation-for="relacja.Artist" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="relacja.Place" class="control-label"></label>
+                                        <input asp-for="relacja.Place" class="form-control" />
+                                        <span asp-validation-for="relacja.Place" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="relacja.Date" class="control-label"></label>
+                                        <input asp-for="relacja.Date" class="form-control" />
+                                        <span asp-validation-for="relacja.Date" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="relacja.relation" class="control-label"></label>
+                                        <textarea asp-for="relacja.relation" class="form-control"></textarea>
+                                        <span asp-validation-for="relacja.relation" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="relacja.URL" class="control-label"></label>
+                                        <input asp-for="relacja.URL" class="form-control" />
+                                        <span asp-validation-for="relacja.URL" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="relacja.Photos" class="control-label"></label>
+                                        <input id="flPhoto4" asp-for="relacja.Photos" type="file" class="form-control-file" multiple="multiple"  />
+                                        <span asp-validation-for="relacja.Photos" class="text-danger"></span>
+                                        <div id="imageToCrop4" style="height:100%; width:100%; overflow:auto;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="relacja.Youtube" class="control-label"></label>
+                                        <input asp-for="relacja.Youtube" class="form-control" />
+                                        <span asp-validation-for="relacja.Youtube" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" name="test[]" value="1" required="required">Akceptuję <a asp-area="" asp-controller="Home" asp-action="Regulamin">regulamin</a>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Prześlij" class="btn btn-default" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <div class="tab-pane" id="4">
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-controller="Tekst" asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Name" class="control-label"></label>
+                            <input asp-for="tekst.Name" class="form-control" />
+                            <span asp-validation-for="tekst.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Author" class="control-label"></label>
+                            <input asp-for="tekst.Author" class="form-control" />
+                            <span asp-validation-for="tekst.Author" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Genre" class="control-label"></label>
+                            @*<input asp-for="tekst.Genre" class="form-control" />*@
+                            @Html.DropDownListFor(x => x.tekst.Genre, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Gospel", Value="Gospel"},
+                        new SelectListItem() {Text = "Rock", Value="Rock"},
+                        new SelectListItem() {Text = "Pop", Value="Pop"},
+                        new SelectListItem() {Text = "Rap", Value="Rap"},
+                        new SelectListItem() {Text = "Hip-hop", Value="Hip-hop"},
+                        new SelectListItem() {Text = "Praise&worship", Value="Praise&worship"},
+                        new SelectListItem() {Text = "Bluess&jazz", Value="Bluess&jazz"},
+                        new SelectListItem() {Text = "Soul", Value="Soul"},
+                        new SelectListItem() {Text = "Ballada", Value="Ballada"},
+                        new SelectListItem() {Text = "Folk", Value="Folk"},
+                        new SelectListItem() {Text = "Poezja śpiewana", Value="Poezja śpiewana"},
+                        new SelectListItem() {Text = "Inny", Value=""},
+    }, new { @class = "form-control", id = "gatunekTekst" })
+                            <div id="gatunekTekstAdd"></div>
+                            <span asp-validation-for="tekst.Genre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Type" class="control-label"></label>
+                            @*<input asp-for="tekst.Type" class="form-control" />*@
+                            @Html.DropDownListFor(x => x.tekst.Type, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Chrześcijańska", Value="Chrześcijańska"},
+                        new SelectListItem() {Text = "Patriotyczna", Value="Patriotyczna"},
+                        new SelectListItem() {Text = "Inny", Value=""},
+    }, new { @class = "form-control", id = "rodzajTekst" })
+                            <div id="rodzajTekstAdd"></div>
+                            <span asp-validation-for="tekst.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.TextAuthor" class="control-label"></label>
+                            <input asp-for="tekst.TextAuthor" class="form-control" />
+                            <span asp-validation-for="tekst.TextAuthor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Text" class="control-label"></label>
+                            <textarea asp-for="tekst.Text" class="form-control" ></textarea>
+                            <span asp-validation-for="tekst.Text" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Translate" class="control-label"></label>
+                            <textarea asp-for="tekst.Translate" class="form-control"  ></textarea>
+                            <span asp-validation-for="tekst.Translate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Youtube" class="control-label"></label>
+                            <input asp-for="tekst.Youtube" class="form-control"></input>
+                            <span asp-validation-for="tekst.Youtube" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Special" class="control-label"></label>
+                            <textarea asp-for="tekst.Special" class="form-control"  ></textarea>
+                            <span asp-validation-for="tekst.Special" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Year" class="control-label"></label>
+                            <input asp-for="tekst.Year" class="form-control" type="text" />
+                            <span asp-validation-for="tekst.Year" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="tekst.Files" class="control-label"></label>
+                            <input asp-for="tekst.Files" type="file" class="form-control-file" multiple="multiple" />
+                            <span asp-validation-for="tekst.Files" class="text-danger"></span>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="test[]" value="1" required="required">Akceptuję <a asp-area="" asp-controller="Home" asp-action="Regulamin">regulamin</a>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Prześlij" class="btn btn-default" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="5">
+            <div class="row">
+                <div class="col-md-12">
+                    <form id="albumForm" asp-controller="Album" asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="album.Name" class="control-label"></label>
+                            <input asp-for="album.Name" class="form-control" />
+                            <span asp-validation-for="album.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="album.Author" class="control-label"></label>
+                            <input asp-for="album.Author" class="form-control" />
+                            <span asp-validation-for="album.Author" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="album.Genre" class="control-label"></label>
+                            @*<input asp-for="album.Genre" class="form-control" />*@
+                            @Html.DropDownListFor(x => x.album.Genre, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Gospel", Value="Gospel"},
+                        new SelectListItem() {Text = "Rock", Value="Rock"},
+                        new SelectListItem() {Text = "Pop", Value="Pop"},
+                        new SelectListItem() {Text = "Rap", Value="Rap"},
+                        new SelectListItem() {Text = "Hip-hop", Value="Hip-hop"},
+                        new SelectListItem() {Text = "Praise&worship", Value="Praise&worship"},
+                        new SelectListItem() {Text = "Bluess&jazz", Value="Bluess&jazz"},
+                        new SelectListItem() {Text = "Soul", Value="Soul"},
+                        new SelectListItem() {Text = "Ballada", Value="Ballada"},
+                        new SelectListItem() {Text = "Folk", Value="Folk"},
+                        new SelectListItem() {Text = "Poezja śpiewana", Value="Poezja śpiewana"},
+                        new SelectListItem() {Text = "Inny", Value=""},
+    }, new { @class = "form-control", id = "gatunekAlbum" })
+                            <div id="gatunekAlbumAdd"></div>
+                            <span asp-validation-for="album.Genre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="album.Type" class="control-label"></label>
+                            @*<input asp-for="album.Type" class="form-control" />*@
+                            @Html.DropDownListFor(x => x.album.Type, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Chrześcijańska", Value="Chrześcijańska"},
+                        new SelectListItem() {Text = "Patriotyczna", Value="Patriotyczna"},
+                        new SelectListItem() {Text = "Inny", Value=""},
+    }, new { @class = "form-control", id = "rodzajAlbum" })
+                            <div id="rodzajAlbumAdd"></div>
+                            <span asp-validation-for="album.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="album.PublicDate" class="control-label"></label>
+                            <input asp-for="album.PublicDate" class="form-control" type="text" />
+                            <span asp-validation-for="album.PublicDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="album.Description" class="control-label"></label>
+                            <textarea asp-for="album.Description" class="form-control" ></textarea>
+                            <span asp-validation-for="album.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="album.Tracks" class="control-label"></label>
+
+                            <div style="width:80%;margin-left:20%;">
+                                <input asp-for="@Model.album.Tracks" class="full form-control" />
+                                <input asp-for="@Model.album.Tracks" class="full form-control" />
+                                <input asp-for="@Model.album.Tracks" class="full form-control" />
+                            </div>
+
+                            <div id="fieldsAlbum" style="width:80%;margin-left:20%;"></div>
+                            <div style="width:80%;margin-left:20%;">
+                                <a id="btnAddFieldAlbum">Dodaj utwór</a>
+                            </div>
+                            <span asp-validation-for="album.Tracks" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="album.Photos" class="control-label"></label>
+                            <input id="flPhoto5" asp-for="album.Photos" type="file" class="form-control-file" multiple="multiple"  />
+                            <span asp-validation-for="album.Photos" class="text-danger"></span>
+                            <div id="imageToCrop5" style="height:100%; width:100%; overflow:auto;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="test[]" value="1" required="required">Akceptuję <a asp-area="" asp-controller="Home" asp-action="Regulamin">regulamin</a>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Prześlij" class="btn btn-default" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@

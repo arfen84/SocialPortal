@@ -1,0 +1,9 @@
+tytuł1
+tytul2
+tytul3
+opis1
+opis2
+opis3
+google.pl
+amazon.com
+microsoft.com

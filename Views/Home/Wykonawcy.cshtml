@@ -1,0 +1,200 @@
+﻿@model SocialPortal.Models.WykonawcyViewModel
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var $cards = $("#albumy").find("[data-wykonawca]");
+        $('#wykonawcy').change(function (e) {
+            var wybor = $(this).val();
+
+            $.each($cards, function (a, b) {
+                var p = $(b).data("wykonawca");
+
+                if (p == wybor) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+            });
+
+        });
+    });
+
+        $(document).ready(function () {
+            var $cards = $("#albumy").find("[data-gatunek]");
+            $('#gatunekUtwor').change(function (e) {
+                var wybor = $(this).val();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).data("gatunek");
+
+                    if (p == wybor) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+                });
+
+            });
+    });
+
+        $(document).ready(function () {
+            var $cards = $("#albumy").find("[data-rodzaj]");
+            $('#rodzajUtwor').change(function (e) {
+                var wybor = $(this).val();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).data("rodzaj");
+
+                    if (p == wybor) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+                });
+
+            });
+        });
+
+        $(document).ready(function () {
+
+            var $cards = $("#albumy").find("[data-publikacji]");
+            $('#datepicker').change(function (e) {
+                var wybor = $(this).val();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).data("publikacji");
+
+                    if (p > wybor) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+                });
+
+            });
+        });
+
+        $(document).ready(function () {
+
+            var $cards = $("#albumy").find("[data-wykonawca]");
+            $('#szukaj').keyup(function () {
+                var wybor = $(this).val().toUpperCase();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).find('h3').text().toUpperCase();
+                    if (p.includes(wybor)) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+
+                });
+
+            });
+        });
+
+        $(document).ready(function () {
+            var $cards = $("#albumy").find("[data-wykonawca]");
+            $('ul#litery li').click(function (e) {
+                var wybor = $(this).text()[0].toUpperCase();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).find('h3').text()[0].toUpperCase();
+                    if (p.includes(wybor)) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+
+                });
+
+            });
+
+        });
+</script>
+
+<div class="container">
+    <h2>Ostatnio dodane</h2>
+    <div class="row" id="ostatnioDodane">
+       
+        @foreach (var last in Model.ostatnioDodani)
+        {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photo.Split(';')[0];}
+                <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                <a asp-controller="@last.Controller" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+            </div>
+                    }
+    </div>
+    <hr />
+    <h2>Najpopularniejsi</h2>
+    <div class="row"  id="najpopularniejsze">
+      
+        @foreach (var last in Model.najpopularniejsi)
+        {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photo.Split(';')[0];}
+                <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                <a asp-controller="@last.Controller" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+</div>
+                    }
+    </div>
+    <hr />
+    <div class="row">
+        <p style="float:left;">Sortuj według : </p>
+        @Html.DropDownListFor(m => m.wykonawcy,
+new SelectList(Model.wykonawcy, Model.wykonawcy),
+   new { @class = "form-control search", id = "wykonawcy" })
+
+    
+       
+        <input class="form-control search" value="Szukaj" id="szukaj" />
+
+
+        <div style="clear:both;"></div>
+        <ul id="litery" class="myFilters">
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li>
+            <li>E</li>
+            <li>F</li>
+            <li>G</li>
+            <li>H</li>
+            <li>I</li>
+            <li>J</li>
+            <li>K</li>
+            <li>L</li>
+            <li>Ł</li>
+            <li>M</li>
+            <li>N</li>
+            <li>O</li>
+            <li>P</li>
+            <li>R</li>
+            <li>S</li>
+            <li>T</li>
+            <li>U</li>
+            <li>W</li>
+            <li>X</li>
+            <li>Y</li>
+            <li>Z</li>
+        </ul>
+        <div style="clear:both;"></div>
+        <div id="albumy">
+            @foreach (var last in Model.artysci)
+            {
+                <div class="col-md-2" data-wykonawca="@last.Name"  >
+                    @{String @imgSrc = @last.Photo.Split(';')[0];}
+                    <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                    <a asp-controller="@last.Controller" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+</div>
+                        }
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SocialPortal.Models.ApplicationUser>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+
+<a class="row">
+    @if (@Model != null)
+    {
+        @foreach (var fan in @Model)
+        {
+
+            <a asp-controller="Home" asp-action="DetailsUser" asp-route-id="@fan.Id">
+                <div class="col-md-3">
+@if (fan.Photo != null)
+{
+                    String @imgSrc1 = fan.Photo.Split(';')[0];
+                    
+                    
+                    <img src="@Url.Content(String.Format("~/uploads/img/{0}", imgSrc1))" class="img-responsive" />
+                    }
+                    @fan.UserName
+                </div>
+                </a>
+                        }
+                        }
+
+</div>
+

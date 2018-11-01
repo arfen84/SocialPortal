@@ -1,0 +1,190 @@
+﻿@model SocialPortal.Models.Event
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+   
+
+      $(document).ready(function () {
+
+        $('#favorite').click(function (e) {
+            var a = "czesc";
+    $.ajax({
+        url: "/Event/Favorite",
+        type: "POST",
+        data: { a : a , id : @Model.ID},
+        success: function (response) {
+            alert(response);
+        },
+        error: function (response) {
+
+        }
+    });
+
+
+        });
+    });
+
+$('.carousel').carousel({
+        interval: false
+    });
+
+
+
+
+
+</script>
+<style>
+    /* Indicators list style */
+    .article-slide .carousel-indicators {
+        bottom: 0;
+        left: 0;
+        margin-left: 5px;
+        width: 100%;
+    }
+        /* Indicators list style */
+        .article-slide .carousel-indicators li {
+            border: medium none;
+            border-radius: 0;
+            float: left;
+            height: 54px;
+            margin-bottom: 5px;
+            margin-left: 0;
+            margin-right: 5px !important;
+            margin-top: 0;
+            width: 100px;
+        }
+        /* Indicators images style */
+        .article-slide .carousel-indicators img {
+            border: 2px solid #FFFFFF;
+            float: left;
+            height: 54px;
+            left: 0;
+            width: 100px;
+        }
+        /* Indicators active image style */
+        .article-slide .carousel-indicators .active img {
+            border: 2px solid #428BCA;
+            opacity: 0.7;
+        }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="col-md-12">
+                <h3>@Html.DisplayFor(model => model.Name)</h3>
+                <h4><i class="far fa-clock"></i> @Html.DisplayFor(model => model.Date) w godzinach @Html.DisplayFor(model => model.Hour)</h4>
+                <h4><i class="fas fa-map-marker"></i> @Html.DisplayFor(model => model.Place) <a href="https://www.google.com/maps/place/@Model.Place" style="float:right;" target="_blank">Pokaż mapę</a></h4>
+                <p>@Html.DisplayFor(model => model.Description) </p>
+            </div>
+            <div class="row">
+                
+                <iframe src="@Model.URL" style="border:1px #000000 solid;" name="DonationCampaign" scrolling="auto" align="center" height="200px" width="100%"></iframe>
+
+                @*<a href="@Model.zespol.Link">Strona internetowa wykonawcy @Html.DisplayFor(model => model.zespol.Name)</a>*@
+            </div>
+            <hr />
+            <div style="clear:both"></div>
+            </div>
+
+        <div class="col-md-7">
+            <div class="carousel slide article-slide" id="article-photo-carousel">
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner cont-slider">
+                    <div class="item active">
+                        @{String @imgSrc = Model.Photos.Split(';')[0];}
+                        <img src="@Url.Content(String.Format("~/uploads/img/{0}", imgSrc))" class="img-responsive" />
+
+                    </div>
+                    @{String[] @imgSrcArray = Model.Photos.Split(';').ToArray();}
+                    @foreach (string str in imgSrcArray)
+                    {
+                        if (str == imgSrc) { continue; }
+                        <div class="item">
+                            <img src="@Url.Content(String.Format("~/uploads/img/{0}", @str))" alt="">
+                        </div>
+                    }
+                </div>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li class="active" data-slide-to="0" data-target="#article-photo-carousel">
+                        <img src="@Url.Content(String.Format("~/uploads/img/{0}", imgSrc))" class="img-responsive" />
+                    </li>
+                    @{ int i = 1;
+                        foreach (string str in imgSrcArray)
+                        {
+                            if (str == imgSrc) { continue; }
+                            if (str == "") { continue; }
+                            <li class="" data-slide-to="@i" data-target="#article-photo-carousel">
+                                <img src="@Url.Content(String.Format("~/uploads/img/{0}", @str))" alt="">
+                            </li>
+                            i = i + 1;
+                        }
+                    }
+
+                </ol>
+            </div>
+
+        </div>
+        <div style="clear:both"></div>
+        <div class="row">
+            <div class="col-md-5 user" style="padding-top:10px;">
+               
+                <div class="com-md-5">
+                    <a href="#" id="favorite">
+                        <h4> Dodaj do ulubionych <i class="far fa-star fa-2x"></i></h4>
+                    </a>
+                </div>
+
+
+                <p style="float:left;margin-right:20px;">Podziel się z innymi :  </p>
+                <ul class="list-inline" style="float:left;">
+                    <li>
+                        <a target="_blank" href="https://facebook.com/sharer.php?u=http://arunendapally.com/post/protect-your-source-code-from-decompiling-or-reverse-engineering" class="social facebook"></a>
+                    </li>
+                    <!--
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://arunendapally.com/post/protect-your-source-code-from-decompiling-or-reverse-engineering&amp;title=Protect your source code from decompiling or reverse engineering" class="social linkedin"></a>
+                    </li> -->
+                    <li>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?url=http://arunendapally.com/post/protect-your-source-code-from-decompiling-or-reverse-engineering&amp;text=Protect your source code from decompiling or reverse engineering&amp;via=arunendapally" class="social twitter"></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://plus.google.com/share?url=http://arunendapally.com/post/protect-your-source-code-from-decompiling-or-reverse-engineering" class="social googleplus"></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href=https://www.youtube.com/channel/UCZ3WOIqMl4NlNg533qF-WmQ" class="social youtube"><img class="img-responsive img-circle" src="/images/youtube.png" /></a>
+                    </li>
+                    <li>
+                        <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.domain.name%2Fproduct%2F@(Model.Name)&media=http%3A%2F%2Fwww.domain.name%2Fproduct%2F@(Model.Name)&description=@(Model.Description)" class="pin-it-button pinterest social" count-layout="horizontal"><img class="img-responsive img-circle" src="/images/Pinterest.png" /></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href=#" class="social youtube"><img class="img-responsive img-circle" src="/images/instagram.jpg" /></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-5 user" style="padding-top:40px;">
+                <p>Dodane przez : @Html.DisplayFor(model => model.Adder)</p>
+                @*@if (Model.ConfirmAdder)*@
+@if (SignInManager.IsSignedIn(User))
+{
+                    <a asp-action="Edit" asp-route-id="@Model.ID">Edytuj</a><br />
+                    <a asp-controller="Home" asp-action="Zglos" asp-route-id="@Model.ID">Zglos blad</a>
+}
+            </div>
+        </div>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+        <div class="fb-comments" data-href="http://SocialPortal.pl/Event/Details/@Model.ID" data-numposts="5" style="width:100%;"></div>
+        }
+
+    </div>
+
+
+</div>

@@ -1,0 +1,168 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+	color:#2B6CA3;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"],.carousel-inner .item img {
+    width: 100vw;
+}
+
+a,a:hover,a:active,a:focus,h2,h3{color:#2B6CA3 !important;}
+h2,h3{text-transform: uppercase;}
+.nav-tabs h3{text-align:center;}
+#Tab { margin-top:25px;}
+.nav-tabs  li {
+ list-style: none;
+    margin: 0 10px; 
+}
+.nav-tabs ul {
+	display: block;
+    float:left;
+    padding: 0;
+    margin: 10px auto;
+}
+
+hr{border-top:1px solid #3B3D3D !important;}
+
+.nav > li > a:hover {background-color:#fff !important;}
+
+.search{width:15% !important;float:left;margin-bottom:10px;margin-left:1%;}
+
+.col-md-2,.flex {/* border: 1px solid #2B6CA3; */margin:5px;padding:5px;min-height:160px !important; text-align:center; flex: 0 0 auto !important;overflow:auto;}
+.col-md-2 img {}
+.user {border: 1px solid #2B6CA3;margin:1%;padding:5px;min-height:160px !important; text-align:center;width:48% !important;}
+.col-md-2 h3 {min-height:55px;}
+.dl-horizontal dt{width:50% !important;text-align:left !important;}
+
+.btn-default { color:#fff !important;background:#2B6CA3 !important;}
+
+.control-label{float:left;width:20%;}
+input.form-control,textarea.form-control,select.form-control  {width:80%;}
+input.full {width:100%;}
+
+#litery li{float:left;list-style-type: none;color:#2B6CA3 !important;font-size:25px;margin:1%;}
+.tekstyLitery li{float:left;list-style-type: none;color:#2B6CA3 !important;font-size:30px !important;margin:0 !important;margin-left:1% !important;}
+
+.form-group {clear:both;}
+.nav-pills > li.active > a {color:#fff !important;}
+.mini {width:39% !important; float:left;}
+.firstMini {width:39% !important;float:left;margin-right:2%;margin-bottom:15px;}
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+.cropButton{
+    font-size:30px;
+}
+
+#ostatnioDodane, #najpopularniejsze, #ostatnioOgladane{
+	display: flex;
+	overflow:scroll;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /*white-space: nowrap;*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  } 
+}
+
+.rater {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.auto-submit-star {
+  position: absolute;
+  left: 0;
+  top: -50px;
+}
+
+.rating-star:hover,
+.rating-star:hover ~ .rating-star {
+  background-position: 0 0;
+}
+
+.rater:hover .rating-star:hover,
+.rater:hover .rating-star:hover ~ .rating-star,
+.auto-submit-star:checked ~ .rating-star {
+  background-position: 0 0;
+}
+
+.rating-star,
+.rater:hover .rating-star {
+  float: right;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url('http://css-stars.com/wp-content/uploads/2013/12/stars.png') 0 -16px;
+}
+
+.list-inline {
+    list-style: outside none none;
+    margin-left: -5px;
+    padding-left: 0;
+}
+
+.list-inline > li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.social {
+  background: url('http://arunendapally.com/themes/CustomTheme/ss.png');
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+.facebook {
+  background-position: -0px -0px;
+}
+
+.linkedin {
+  background-position: -0px -42px;
+}
+
+.twitter {
+  background-position: -0px -84px;
+}
+
+.googleplus {
+  background-position: -0px -126px;
+}
+
+.fb-comments span, .fb-comments span iframe {width:100% !important;}
+
+.row {margin:0 !important;}
+#img1{width:2000px !important;height:1000px !important;}
+input {height:35px !important;}
+/*
+.jcrop-active , canvas{ width:100vw !important ; height:100vh !important;}
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}

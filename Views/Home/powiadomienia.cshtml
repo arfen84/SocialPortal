@@ -1,0 +1,84 @@
+﻿@model SocialPortal.Models.ProfilViewModel
+  
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+@*<script type="text/javascript" src="~/js/jquery-1.6.4.min.js"></script>*@
+@*<script type="text/javascript" src="~/js/jquery.signalR-2.2.0.min.js"></script>*@
+@*<script type="text/javascript" src="~/js/jquery.signalR-2.2.3.js"></script>
+ <script src="/signalr/hubs"></script>*@
+
+<script>
+       function contentLoaded() {
+                 var source = new EventSource('/Home/message');
+                 //var ul = document.getElementById("NotificationBox");
+                 source.onmessage = function (e) {
+                     console.log(e.data);
+                     //    var li = document.createElement("li");
+                     //var returnedItem = JSON.parse(e.data)
+                     //    li.textContent = returnedItem.message + ' ' + returnedItem.item;
+                     //   ul.appendChild(li);
+                     $("#messagess").prepend(e.data.replace('""', '').replace('"', '').replace('"', ''));
+                     //ul.append(e.data.replace('""', '')).append('<br>');
+                   }
+        }
+      window.addEventListener("DOMContentLoaded", contentLoaded, false);
+</script>
+
+<h2>@ViewBag.Message</h2>
+
+
+<div class="row" id="messagess"></div>
+
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+      
+    setInterval(function () {
+
+       @*var powiadomienie = '@TempData["Notification"]';*@
+
+        //$("#NotificationBox").fadeIn(1000);
+
+                //$("#NotificationBox").delay(3000).fadeOut(2000);
+        //$("#NotificationBox").html("").append(powiadomienie);
+                //$("#NotificationBox").delay(10000).slideUp(1000);
+                $.ajax({
+                    url: "/Home/Notifications",
+                    //url: "/Noti/Notify",
+                    type: "POST",
+                
+                    success: function (response) {
+                      
+                        //$("#NotificationBox").html("").append(response);
+                    },
+                    error: function (er) {
+                      
+                    }
+                });
+
+        }, 10000); //Refreshes every 30 seconds
+    });
+
+    //Used to display and close the system notifications
+    $(document).ready(function () {
+
+    });
+</script>
+   
+<p> @if (@Model.Nazwa != null)
+{ @Model.Nazwa 
+@Html.DisplayNameForModel()
+    @Html.DisplayFor(m => m.Nazwa)
+}</p>
+
+
+@*@if (TempData["Notification"] != null)
+{*@
+    @Html.Hidden("NotificationAutoHide", TempData["NotificationAutoHide"])
+    <div id="NotificationBox"  style="display: none">
+       
+    </div>
+@*}*@
+@*<div id="divPoints"></div>
+@Html.Hidden("newpoints", Model)*@
+
+<div id="notifications"></div>

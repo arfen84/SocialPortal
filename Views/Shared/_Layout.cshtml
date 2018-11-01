@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    < <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SocialPortal</title>
+
+    <environment include="Development">
+	 <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+	<!--	
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	   
+    </environment>
+    <environment exclude="Development">
+   
+
+    </environment>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css">
+
+
+
+</head>
+<body>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <nav class="navbar  navbar-fixed-top" style="background: #fff;">
+        <div class="container">
+            <div class="navbar-header" style="min-height:70px;">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="/images/logo.png" alt="logo"/></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="text-transform: uppercase;margin-top:15px;margin-left:5%;">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Utwory">Utwory</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Wykonawcy">Wykonawcy</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Wydarzenia">Wydarzenia</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Teksty">Teksty</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Albumy">Albumy</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Podziel">Podziel się</a></li>
+					
+
+
+
+
+                </ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+		<hr>
+    </nav>
+	<div style="clear:both;"></div>
+    <div class="container body-content" style="margin-top:80px;clear:both;">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="col-md-4">
+            <p>&copy; 2018 - SocialPortal</p>
+                </div>
+            <div class="col-md-8">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Projekt" >O projekcie</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Dziala">Jak to dziala</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Team">O nas</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Regulamin">Regulamin</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Wesprzyj">Wesprzyj nas</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Kontakt">Kontakt</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <environment include="Development">
+      
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+		
+
+
+    </environment>
+    <environment exclude="Development">
+     <!--   <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+		-->
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

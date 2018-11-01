@@ -1,0 +1,495 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model SocialPortal.Models.UstawieniaViewModel
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/css/Jcrop.min.css" />
+<script type="text/javascript">
+
+
+    var imageCropWidth = 0;
+
+    var imageCropHeight = 0;
+
+    var cropPointX = 0;
+
+    var cropPointY = 0;
+
+    var jcropApi;
+
+    $(document).ready(function () {
+
+        // initCrop();
+
+    });
+
+    function initCrop1() {
+        var images = $('.pictures').each(function (index, value) {
+
+            $('#' + value.id.toString()).Jcrop({
+
+                onChange: setCoordsAndImgSize,
+
+                // aspectRatio: 0, // 1 means will be same for height and weight
+
+                setSelect: [0, 0, 500, 500],
+                aspectRatio: 500 / 500,
+                allowResize: false, boxWidth: 1500, boxHeight: 500,
+                onSelect: setCoordsAndImgSize
+
+            }, function () { jcropApi = this });
+
+
+        });
+    }
+
+
+    function initCrop2() {
+        var images = $('.pictures').each(function (index, value) {
+
+            $('#' + value.id.toString()).Jcrop({
+
+                onChange: setCoordsAndImgSize,
+
+                // aspectRatio: 0, // 1 means will be same for height and weight
+
+                setSelect: [0, 0, 1600, 300],
+                aspectRatio: 800 / 300,
+                allowResize: false,
+                boxWidth: 1500, boxHeight: 500,
+                onSelect: setCoordsAndImgSize
+
+            }, function () { jcropApi = this });
+
+
+        });
+    }
+
+    //function initCrop() {
+    //    var images = $('.pictures').each(function (index, value) {
+    //        console.log('#' + value.id.toString());
+    //        $('#imgg1').Jcrop({
+
+    //            onChange: setCoordsAndImgSize,
+
+    //            aspectRatio: 0, // 1 means will be same for height and weight
+
+    //            onSelect: setCoordsAndImgSize
+
+    //        }, function () { jcropApi = this });
+
+
+    //    });
+
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+    function showCoordinate() {
+
+        $("#lblWidth").text(imageCropWidth + "px");
+
+        $("#lblHeight").text(imageCropHeight + "px");
+
+    }
+
+    function setCoordsAndImgSize(e) {
+
+        imageCropWidth = e.w;
+
+        imageCropHeight = e.h;
+
+        cropPointX = e.x;
+
+        cropPointY = e.y;
+
+        //console.log(e);
+
+        var images3 = $('.labHeight').each(function (index, value) {
+            //alert(value.id.toString());
+
+            $('#' + value.id.toString()).text(imageCropHeight + "px");
+        })
+        var images2 = $('.labWidth').each(function (index, value) {
+            $('#' + value.id.toString()).text(imageCropWidth + "px");
+
+        })
+
+        //$("#lblWidth").text(imageCropWidth + "px");
+
+        //$("#lblHeight").text(imageCropHeight + "px");
+
+    }
+
+
+
+    function cropImage(id) {
+
+        if (imageCropWidth == 0 && imageCropHeight == 0) {
+
+            alert("Please select crop area.");
+
+            return;
+
+        }
+
+        var img = $("#" + id).attr("src");
+
+        /*Show cropped image*/
+
+        showCroppedImage(id);
+
+    }
+
+    function showCroppedImage(id) {
+
+        var x1 = cropPointX;
+
+        var y1 = cropPointY;
+
+        var width = imageCropWidth;
+
+        var height = imageCropHeight;
+
+
+
+
+        var canvas = $("#canvas" + id)[0];
+
+        var context = canvas.getContext('2d');
+
+        var img = new Image();
+
+        img.onload = function () {
+
+            canvas.height = height;
+
+            canvas.width = width;
+
+            context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
+
+            $('#avatarCropped' + id).val(canvas.toDataURL());
+
+        };
+
+        img.src = $('#img' + id).attr("src");
+
+    }
+
+    function readFile1(input, image) {
+        var cos = image.split(';'); var i = 0;
+
+        $.each(input, function (index, value) {
+            //if (input.files && input.files[0]) {
+            if (input.files && input.files[i]) {
+                //console.log(input.files[i].name);
+
+                var reader = new FileReader();
+
+                /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+
+                if (jcropApi != null) {
+
+                    jcropApi.destroy();
+
+                }
+
+                var strin = '#' + cos[i].toString();
+                reader.onload = function (e) {
+
+                    $('#imgEmpPhoto').attr('src', "");
+                    //alert(input);
+
+
+                    //alert(i);
+                    var img = $(strin.toString()).attr('src', e.target.result);
+
+                    /*Current uploaded image size*/
+
+                    var width = img[0].height;
+
+                    var height = img[0].width;
+
+                    $("#lblWidth" + i.toString()).text(width + "px");
+
+                    $("#lblHeight" + i.toString()).text(height + "px");
+
+                    //InitCrop must call here otherwise it will not work
+
+
+
+                }
+
+                reader.readAsDataURL(input.files[i]);
+                i++;
+
+            }
+        });
+
+        setTimeout("initCrop1();", 1000);
+
+    }
+
+    function readFile2(input, image) {
+        var cos = image.split(';'); var i = 0;
+
+        $.each(input, function (index, value) {
+            //if (input.files && input.files[0]) {
+            if (input.files && input.files[i]) {
+                //console.log(input.files[i].name);
+
+                var reader = new FileReader();
+
+                /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+
+                if (jcropApi != null) {
+
+                    jcropApi.destroy();
+
+                }
+
+                var strin = '#' + cos[i].toString();
+                reader.onload = function (e) {
+
+                    $('#imgEmpPhoto').attr('src', "");
+                    //alert(input);
+
+
+                    //alert(i);
+                    var img = $(strin.toString()).attr('src', e.target.result);
+
+                    /*Current uploaded image size*/
+
+                    var width = img[0].height;
+
+                    var height = img[0].width;
+
+                    $("#lblWidth" + i.toString()).text(width + "px");
+
+                    $("#lblHeight" + i.toString()).text(height + "px");
+
+                    //InitCrop must call here otherwise it will not work
+
+
+
+                }
+
+                reader.readAsDataURL(input.files[i]);
+                i++;
+
+            }
+        });
+
+        setTimeout("initCrop2();", 1000);
+
+    }
+
+
+    $(document).ready(function () {
+
+
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+
+
+        $("#hlcropImage").on("click", function (e) {
+
+            /*
+
+            The event.preventDefault() method stops the default action of
+
+            an element from happening. For example: Prevent a submit button
+
+            from submitting a form. Prevent a link from following the URL
+
+            */
+            alert(this.id);
+
+            e.preventDefault();
+
+            //cropImage();
+
+        });
+
+        $('#flPhoto1').change(function () {
+
+            // readFile(this);
+
+
+            $("#profiloweForm").find("input[type=file]").each(function (index, field) {
+                $('#imageToCrop1').html("");
+                $('#imageToCrop2').html("");
+                var i = 1; var str = "";
+                $.each(field.files, function (index, value) {
+
+                    var img = "img" + i.toString();
+                    $('#imageToCrop1').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString() + '">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString() + '">200px</label><img class="pictures img-responsive" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i + '" height="5" width="5" style="vertical- align:top; width: 100%;"></canvas><input type="hidden" name="avatarCropped' + i + '" id="avatarCropped' + i + '" />');
+                    str = str + img + ";"
+                    i++;
+
+                });
+
+                readFile1(this, str);
+
+            });
+            //initCrop();
+        });
+    });
+
+    $(document).ready(function () {
+
+
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+
+
+        $("#hlcropImage").on("click", function (e) {
+
+            /*
+
+            The event.preventDefault() method stops the default action of
+
+            an element from happening. For example: Prevent a submit button
+
+            from submitting a form. Prevent a link from following the URL
+
+            */
+            alert(this.id);
+
+            e.preventDefault();
+
+            //cropImage();
+
+        });
+
+        $('#flPhoto2').change(function () {
+
+            // readFile(this);
+
+
+            $("#wTleForm").find("input[type=file]").each(function (index, field) {
+                $('#imageToCrop1').html("");
+                $('#imageToCrop2').html("");
+                var i = 1; var str = "";
+                $.each(field.files, function (index, value) {
+
+                    var img = "img" + i.toString();
+                    $('#imageToCrop2').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString() + '">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString() + '">200px</label><img class="pictures img-responsive" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i + '" height="5" width="5" style="vertical- align:top; width: 100%;"></canvas><input type="hidden" name="avatarCropped' + i + '" id="avatarCropped' + i + '" />');
+                    str = str + img + ";"
+                    i++;
+
+                });
+
+                readFile2(this, str);
+
+            });
+            //initCrop();
+        });
+    });
+</script>
+<div class="container-fluid">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12" style="border-right: 1px solid #eee;">
+
+            <div class="row">
+                <form asp-controller="Home" asp-action="ProfilName">
+                    <h4>Wprowadź nową nazwę użytkownika</h4>
+                    <input asp-for="@Model.au.UserName" type="text" class="form-control" />
+                    <div class="form-group">
+                        <input type="submit" value="Prześlij" class="btn btn-default" />
+                    </div>
+                </form>
+                <form id="profiloweForm" asp-controller="Home" asp-action="UstawieniaZdjecieProfilowe" enctype="multipart/form-data">
+                    <h4>Wstaw nowe zdjęcie profilowe</h4>
+                    <input id="flPhoto1" asp-for="@Model.au.Photo" type="file" class="form-control-file" />
+                    <div id="imageToCrop1" style="height:100%; width:100%; overflow:auto;"></div>
+                        <div class="form-group">
+                            <input type="submit" value="Prześlij" class="btn btn-default" />
+                        </div>
+</form>
+                <form id="wTleForm" asp-controller="Home" asp-action="UstawieniaZdjecieWtle" enctype="multipart/form-data">
+                    <h4>Wstaw nowe zdjęcie w tle</h4>
+                    <input id="flPhoto2" asp-for="@Model.au.Photo" type="file" class="form-control-file" />
+                    <div id="imageToCrop2" style="height:100%; width:100%; overflow:auto;"></div>
+                        <div class="form-group">
+                            <input type="submit" value="Prześlij" class="btn btn-default" />
+                        </div>
+</form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <form asp-controller="Home" asp-action="ChangeEmail" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label>Podaj nowy email</label>
+                                <input asp-for="@Model.au.Email" class="form-control" />
+                                <span asp-validation-for="@Model.au.Email" class="text-danger"></span>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-default">Zmień email</button>
+                        </form>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-md-6">
+                        <form asp-controller="Manage" asp-action="ChangePassword" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label >Stare hasło</label>
+                                <input asp-for="@Model.passViewModel.OldPassword" class="form-control" />
+                                <span asp-validation-for="@Model.passViewModel.OldPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Nowe hasło</label>
+                                <input asp-for="@Model.passViewModel.NewPassword" class="form-control" />
+                                <span asp-validation-for="@Model.passViewModel.NewPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Potwierdź nowe hasło</label>
+                                <input asp-for="@Model.passViewModel.ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="@Model.passViewModel.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-default">Zmień hasło</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <form asp-controller="Home" asp-action="UsunKonto" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                               
+                                <input asp-for="@Model.au.Email" class="form-control" />
+                                <span asp-validation-for="@Model.au.Email" class="text-danger"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-danger">Usuń konto</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

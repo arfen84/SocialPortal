@@ -1,0 +1,334 @@
+﻿@model SocialPortal.Models.slider
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/css/Jcrop.min.css" />
+
+
+@*<script type="text/javascript" src="~/js/Jcrop/js/jquery.Jcrop.min.js"></script>*@
+
+<script type="text/javascript">
+
+    var imageCropWidth = 0;
+    var imageCropHeight = 0;
+    var cropPointX = 0;
+    var cropPointY = 0;
+    var jcropApi;
+
+    function initCrop() {
+        var images = $('.pictures').each(function (index, value) {
+            var $img = $("#img1");
+            
+            var w = $img.width();
+            var h = $img.height();
+
+            $('#' + value.id.toString()).Jcrop({
+
+                onChange: setCoordsAndImgSize,
+                setSelect: [0,0,1000,400],
+                aspectRatio: 1000/400,
+                allowResize: false,
+                onSelect: setCoordsAndImgSize,
+               
+                boxWidth: 1500, boxHeight: 500
+            }, function () { jcropApi = this });
+
+
+        });
+    }
+
+    function showCoordinate() {
+
+        $("#lblWidth").text(imageCropWidth + "px");
+
+        $("#lblHeight").text(imageCropHeight + "px");
+
+    }
+
+    function setCoordsAndImgSize(e) {
+
+        imageCropWidth = e.w;
+
+        imageCropHeight = e.h;
+
+        cropPointX = e.x;
+
+        cropPointY = e.y;
+
+        //console.log(e);
+
+        var images3 = $('.labHeight').each(function (index, value) {
+            //alert(value.id.toString());
+
+            $('#' + value.id.toString()).text(imageCropHeight + "px");
+        })
+        var images2 = $('.labWidth').each(function (index, value) {
+            $('#' + value.id.toString()).text(imageCropWidth + "px");
+
+        })
+
+        //$("#lblWidth").text(imageCropWidth + "px");
+
+        //$("#lblHeight").text(imageCropHeight + "px");
+
+    }
+
+
+
+    function cropImage(id) {
+
+        if (imageCropWidth == 0 && imageCropHeight == 0) {
+
+            alert("Please select crop area.");
+
+            return;
+
+        }
+
+        var img = $("#"+id).attr("src");
+
+        /*Show cropped image*/
+
+        showCroppedImage(id);
+
+    }
+
+    function showCroppedImage(id) {
+
+        var x1 = cropPointX;
+
+        var y1 = cropPointY;
+
+        var width = imageCropWidth;
+
+        var height = imageCropHeight;
+
+
+
+
+        var canvas = $("#canvas"+id)[0];
+
+        var context = canvas.getContext('2d');
+
+        var img = new Image();
+
+        img.onload = function () {
+
+            canvas.height = height;
+
+            canvas.width = width;
+
+            context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
+
+            $('#avatarCropped'+id).val(canvas.toDataURL());
+
+        };
+
+        img.src = $('#img'+id).attr("src");
+
+    }
+
+    function readFile(input, image) {
+        var cos = image.split(';'); var i = 0;
+
+        $.each(input, function (index, value) {
+        //if (input.files && input.files[0]) {
+            if (input.files && input.files[i]) {
+                //console.log(input.files[i].name);
+
+            var reader = new FileReader();
+
+            /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+
+            if (jcropApi != null) {
+
+                jcropApi.destroy();
+
+            }
+
+            reader.addEventListener("load", function (event) {
+                var picFile = event.target;
+                var imageData = picFile.result;
+                var img = new Image();
+                img.src = imageData;
+                img.onload = function () {
+                   
+                    if (img.width > 2000 || img.height > 1000) {
+                        var width = 2000;
+                        var height = 1000;
+
+                        if (img.width > 2000) {
+                            width = 2000;
+                            var ration = 2000 / img.width;
+                            height = Math.round(img.height * ration);
+                        }
+
+                        if (height > 1000) {
+                            height = 1000;
+                            var ration = 1000 / img.height;
+                            width = Math.round(img.width * ration);
+                        }
+                        
+                        var canvas = $("<canvas>").get(0);
+                       
+                        canvas.width = width;
+                        canvas.height = height;
+                        var context = canvas.getContext('2d');
+                        context.drawImage(img, 0, 0, width, height);
+                        imageData = canvas.toDataURL();
+
+                        //if (settings.onImageResized != null && typeof (settings.onImageResized) == "function") {
+                        //    settings.onImageResized(imageData);
+                        //}
+                    }
+
+                }
+            });  
+
+            var strin = '#' + cos[i].toString();
+            reader.onload = function (e) {
+               
+                //var image = new Image(); 
+                //image.onload = function (imageEvent) {
+                //    alert("hello");
+                //    // Resize the image
+                //    var canvas8 = document.createElement('canvas'),
+                //        max_size = 2000,// TODO : pull max size from a site config
+                //        width = image.width, 
+                //        height = image.height;
+                //    if (width > height) {
+                //        if (width > max_size) {
+                //            height *= max_size / width;
+                //            width = max_size;
+                //        }
+                //    } else {
+                //        if (height > max_size) {
+                //            width *= max_size / height;
+                //            height = max_size;
+                //        }
+                //    }
+                    
+                //    canvas8.width = width;
+                //    canvas8.height = height;
+                //    canvas8.getContext('2d').drawImage(image, 0, 0, width, height);
+                //    var dataUrl = canvas8.toDataURL('image/jpeg');
+                //    var resizedImage = dataURLToBlob(dataUrl);
+                //    $.event.trigger({
+                //        type: "imageResized",
+                //        blob: resizedImage,
+                //        url: dataUrl
+                //    });
+                //}
+
+                $('#imgEmpPhoto').attr('src', "");
+                //alert(input);
+
+
+                //alert(i);
+                var img = $(strin.toString()).attr('src', e.target.result);
+
+                /*Current uploaded image size*/
+
+                var width = img[0].height;
+
+                var height = img[0].width;
+
+                
+                $("#lblWidth" + i.toString()).text(width + "px");
+
+                $("#lblHeight" + i.toString()).text(height + "px");
+
+                //InitCrop must call here otherwise it will not work
+
+
+
+            }  //end of reader.onload
+            
+          
+            reader.readAsDataURL(input.files[i]);
+            i++;
+
+        }
+        });
+
+        setTimeout("initCrop();", 1000);
+
+        }
+
+
+
+   
+
+    $(document).ready(function () {
+        $(document).on('click', '.cropButton', function (e) {
+            e.preventDefault();
+            cropImage(this.id);
+        });
+
+        $("#hlcropImage").on("click", function (e) {
+            alert(this.id);
+            e.preventDefault();
+        });
+
+        $('#flPhoto2').change(function () {
+            $("#Slider").find("input[type=file]").each(function (index, field) {
+               
+                $('#imageToCrop2').html("");
+             
+                var i = 1; var str = "";
+               
+                $.each(field.files, function (index, value) {
+                    var img = "img" + i.toString();
+                    $('#imageToCrop2').append('<div class="row"><div class="imgWrap" >  Width: <label class="labWidth" id="lblWidth' + i.toString() + '">200px</label> Height: <label class="labHeight" id="lblHeight' + i.toString() + '">200px</label><img class="pictures" id="' + img + '" style="display:block!important;" />  </div > <a href="#" id="' + i.toString() + '" class="cropButton" >Kadruj</a></div >  <canvas id="canvas' + i + '" height="5" width="5" style="vertical- align:top; width: 100 %;"></canvas><input type="hidden" name="avatarCropped' + i + '" id="avatarCropped' + i + '" />');
+                    str = str + img + ";"
+                    i++;
+                });
+                readFile(this, str);
+            });
+        });
+    });
+    </script>
+<form id="Slider" asp-controller="Home" asp-action="ZdjeciaSlider" enctype="multipart/form-data">
+    <div class="col-md-12">
+        <h4>Wstaw nowe zdjęcia do slidera o nazwie baner1, baner2, baner3</h4>
+        <input id="flPhoto2" asp-for="@Model.str" type="file" class="form-control-file" multiple="multiple" />
+
+       
+        <div id="imageToCrop2" style="height:100%; width:100%; overflow:auto;">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Prześlij zdjęcia" class="btn btn-default" />
+        </div>
+    </div>
+
+
+</form>
+
+<form id="wTleForm" asp-controller="Home" asp-action="SliderTeksty" >
+    <div class="col-md-12">
+        <h4>Wpisz tytuły zdjęć w sliderze</h4>
+        <input asp-for="@Model.title1" type="text" class="form-control" />
+        <input asp-for="@Model.title2" type="text" class="form-control" />
+        <input asp-for="@Model.title3" type="text" class="form-control" />
+
+        <h4>Wpisz opisy zdjęć w sliderze</h4>
+        <input asp-for="@Model.desc1" type="text" class="form-control" />
+        <input asp-for="@Model.desc2" type="text" class="form-control" />
+        <input asp-for="@Model.desc3" type="text" class="form-control" />
+
+        <h4>Wprowadź linki do których będą prowadziły zdjęcia w sliderze</h4>
+        <input asp-for="@Model.link1" type="text" class="form-control" />
+        <input asp-for="@Model.link2" type="text" class="form-control" />
+        <input asp-for="@Model.link3" type="text" class="form-control" />
+
+        <div class="form-group">
+            <input type="submit" value="Prześlij teksty" class="btn btn-default" />
+        </div>
+    </div>
+</form>

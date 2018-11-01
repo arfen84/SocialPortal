@@ -1,0 +1,273 @@
+﻿@model SocialPortal.Models.UtworyViewModel
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var $cards = $("#albumy").find("[data-wykonawca]");
+        $('#wykonawcy').change(function (e) {
+            var wybor = $(this).val();
+
+            $.each($cards, function (a, b) {
+                var p = $(b).data("wykonawca");
+
+                if (p == wybor) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+            });
+
+        });
+    });
+
+        $(document).ready(function () {
+            var $cards = $("#albumy").find("[data-gatunek]");
+            $('#gatunekUtwor').change(function (e) {
+                var wybor = $(this).val();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).data("gatunek");
+
+                    if (p == wybor) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+                });
+
+            });
+    });
+
+        $(document).ready(function () {
+            var $cards = $("#albumy").find("[data-rodzaj]");
+            $('#rodzajUtwor').change(function (e) {
+                var wybor = $(this).val();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).data("rodzaj");
+
+                    if (p == wybor) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+                });
+
+            });
+        });
+
+        $(document).ready(function () {
+
+            var $cards = $("#albumy").find("[data-publikacji]");
+            $('#datepicker').change(function (e) {
+                var wybor = $(this).val();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).data("publikacji");
+
+                    if (p > wybor) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+                });
+
+            });
+        });
+
+        $(document).ready(function () {
+
+            var $cards = $("#albumy").find("[data-wykonawca]");
+            $('#szukaj').keyup(function () {
+                var wybor = $(this).val().toUpperCase();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).find('h3').text().toUpperCase();
+                    if (p.includes(wybor)) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+
+                });
+
+            });
+        });
+
+        $(document).ready(function () {
+            var $cards = $("#albumy").find("[data-wykonawca]");
+            $('ul#litery li').click(function (e) {
+                var wybor = $(this).text()[0].toUpperCase();
+
+                $.each($cards, function (a, b) {
+                    var p = $(b).find('h3').text()[0].toUpperCase();
+                    if (p.includes(wybor)) {
+                        $(b).show();
+                    } else {
+                        $(b).hide();
+                    }
+
+                });
+
+            });
+
+        });
+</script>
+
+<div class="container">
+    <div class="row">
+        <h2>Ostatnio dodane</h2>
+        <div class="col-md-10">
+        <div class="col-md-12" id="ostatnioDodane">
+            
+                @foreach (var last in Model.ostatnioDodane)
+            {
+                    <div class="col-md-3 flex">
+
+                        @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                            String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                        }
+
+                        <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                        <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+                    </div>
+                            }
+          
+        </div>
+            <div class="clearfix"></div>
+            <hr />
+        <h2>Najpopularniejsze</h2>
+        <div class="col-md-12" id="najpopularniejsze">
+
+            @foreach (var last in Model.najpopularniejsze)
+            {
+                <div class="col-md-3 flex">
+
+                    @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                        String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                    }
+
+                    <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                    <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+                </div>
+                        }
+        </div>
+            <div class="clearfix"></div>
+            <hr />
+            <h3>Ostatnio oglądane</h3>
+            <div class="col-md-12" id="ostatnioOgladane">
+                
+                @foreach (var last in Model.ostatnioOgladane.Take(5))
+            {
+                    <div class="col-md-3 flex">
+
+                        @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                            String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                        }
+
+                        <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                        <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+                    </div>
+                  
+                            }
+            </div>
+    </div>
+     
+      
+        <div class="col-md-2" style="margin:0;">
+            <h3 style="text-align:center;">TOP 5</h3>
+            @foreach (var last in Model.ostatnioOgladane.Take(5))
+            {
+                <div class="col-md-12 flex">
+
+                    @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                        String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                    }
+
+                    <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                    <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+                </div>
+                <div style="clear:both;"></div>
+                        }
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <p style="float:left;">Sortuj według : </p>
+		@if (@Model.wykonawcy !=null){
+        @Html.DropDownListFor(m => m.wykonawcy,
+   new SelectList(Model.wykonawcy, Model.wykonawcy.FirstOrDefault()),
+   new { @class = "form-control search", id = "wykonawcy" })}
+
+        @Html.DropDownList("Gatunek", new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Gospel", Value="Gospel"},
+                        new SelectListItem() {Text = "Rock", Value="Rock"},
+                        new SelectListItem() {Text = "Pop", Value="Pop"},
+                        new SelectListItem() {Text = "Rap", Value="Rap"},
+                        new SelectListItem() {Text = "Hip-hop", Value="Hip-hop"},
+                        new SelectListItem() {Text = "Praise&workship", Value="Praise&workship"},
+                        new SelectListItem() {Text = "Bluess&jazz", Value="Bluess&jazz"},
+                        new SelectListItem() {Text = "Soul", Value="Soul"},
+                        new SelectListItem() {Text = "Ballada", Value="Ballada"},
+                        new SelectListItem() {Text = "Folk", Value="Folk"},
+                        new SelectListItem() {Text = "Poezja śpiewana", Value="Poezja śpiewana"},
+    }, new { @class = "form-control search", id = "gatunekUtwor" })
+
+        @Html.DropDownList("Rodzaj", new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "Chrześcijańska", Value="Chrześcijańska"},
+                        new SelectListItem() {Text = "Patriotyczna", Value="Patriotyczna"},
+    }, new { @class = "form-control search", id = "rodzajUtwor" })
+        <input asp-for="@Model.Date" class="form-control search" id="datepicker" />
+        <input class="form-control search" value="Szukaj" id="szukaj" />
+
+
+        <div style="clear:both;"></div>
+        <ul id="litery" class="myFilters">
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li>
+            <li>E</li>
+            <li>F</li>
+            <li>G</li>
+            <li>H</li>
+            <li>I</li>
+            <li>J</li>
+            <li>K</li>
+            <li>L</li>
+            <li>Ł</li>
+            <li>M</li>
+            <li>N</li>
+            <li>O</li>
+            <li>P</li>
+            <li>R</li>
+            <li>S</li>
+            <li>T</li>
+            <li>U</li>
+            <li>W</li>
+            <li>X</li>
+            <li>Y</li>
+            <li>Z</li>
+        </ul>
+        <div style="clear:both;"></div>
+        <div id="albumy">
+            @foreach (var last in Model.utwory)
+            {
+                <div class="col-md-2" data-wykonawca="@last.Author" data-gatunek="@last.Type" data-rodzaj="@last.MusicType" data-publikacji="@last.AddDate">
+                    @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                        String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                    }
+
+                    <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                    <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"> <h3>@Html.DisplayFor(m => last.Name)</h3></a>
+                </div>
+                        }
+        </div>
+    </div>
+
+</div>

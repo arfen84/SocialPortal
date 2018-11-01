@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SocialPortal.Models.Utwor>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<div class="container">
+    <div class="row">
+        <h2>Utwory dodane przez Ciebie</h2>
+        <div class="col-md-12">
+            <div class="col-md-12" >
+                <div id="albumy">
+                    @foreach (var last in Model)
+            {
+                        <div class="col-md-2" data-wykonawca="@last.Author" data-gatunek="@last.Type" data-rodzaj="@last.MusicType" data-publikacji="@last.AddDate">
+                            @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                                String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                            }
+
+                            <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                            <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"> <h3>@Html.DisplayFor(m => last.Name)</h3></a>
+                        </div>
+                                }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

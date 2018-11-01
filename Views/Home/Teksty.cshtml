@@ -1,0 +1,195 @@
+﻿@model SocialPortal.Models.TekstViewModel
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var $cards = $("#albumy").find("[data-wykonawca]");
+        $('#wykonawcy').change(function (e) {
+            var wybor = $(this).val();
+
+            $.each($cards, function (a, b) {
+                var p = $(b).data("wykonawca");
+
+                if (p == wybor) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+            });
+
+        });
+    });
+
+    $(document).ready(function () {
+        var $cards = $("#albumy").find("[data-gatunek]");
+        $('#gatunekUtwor').change(function (e) {
+            var wybor = $(this).val();
+
+            $.each($cards, function (a, b) {
+                var p = $(b).data("gatunek");
+
+                if (p == wybor) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+            });
+
+        });
+    });
+
+    $(document).ready(function () {
+        var $cards = $("#albumy").find("[data-rodzaj]");
+        $('#rodzajUtwor').change(function (e) {
+            var wybor = $(this).val();
+
+            $.each($cards, function (a, b) {
+                var p = $(b).data("rodzaj");
+
+                if (p == wybor) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+            });
+
+        });
+    });
+    
+    $(document).ready(function () {
+
+        var $cards = $("#albumy").find("[data-publikacji]");
+        $('#datepicker').change(function (e) {
+            var wybor = $(this).val();
+
+            $.each($cards, function (a, b) {
+                var p = $(b).data("publikacji");
+
+                if (p > wybor) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+            });
+
+        });
+    });
+
+    $(document).ready(function () {
+
+        var $cards = $("#albumy").find("[data-wykonawca]");
+        $('#szukaj').keyup(function () {
+            var wybor = $(this).val().toUpperCase();
+
+            $.each($cards, function (a, b) {
+                var p = $(b).find('h4').text().toUpperCase();
+                if (p.includes(wybor)) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+
+            });
+
+        });
+    });
+
+    $(document).ready(function () {
+        var $cards = $("#albumy").find("[data-wykonawca]");
+        $('ul#litery li').click(function (e) {
+            var wybor = $(this).text()[0];
+
+            $.each($cards, function (a, b) {
+                var p = $(b).find('h4').text()[0].toUpperCase();
+               
+                if (p.includes(wybor)) {
+                    $(b).show();
+                } else {
+                    $(b).hide();
+                }
+
+            });
+
+        });
+
+    });
+</script>
+
+<div class="container">
+    <div class="col-md-3" style=" border-right: 1px solid #eee;">
+        <h2>Ostatnio dodane</h2>
+        <div class="col-md-12">
+                        @foreach (var last in Model.ostatnioDodane)
+            {
+                            <a asp-controller="Tekst" asp-action="Details" asp-route-id="@last.ID" style="color:#000 !important;">
+                                <h4>@Html.DisplayFor(m => last.Name) / @Html.DisplayFor(m => last.Author)</h4>
+                                </a>
+                                }
+</div>
+  
+    <hr />
+   
+        <h2>Najpopularniejsze</h2>
+        <div class="col-md-12">
+                        @foreach (var last in Model.najpopularniejsze)
+            {
+                            <a asp-controller="Tekst" asp-action="Details" asp-route-id="@last.ID" style="color:#000 !important;">
+                                <h4>@Html.DisplayFor(m => last.Name) / @Html.DisplayFor(m => last.Author)</h4>
+                                </a>
+
+                                }
+</div>
+    </div>
+    
+    <div class="col-md-9">
+        <p style="float:left;">Sortuj według : </p>
+        @Html.DropDownListFor(m => m.wykonawcy,
+   new SelectList(Model.wykonawcy, Model.wykonawcy.FirstOrDefault()),
+   new { @class = "form-control search", id = "wykonawcy" })
+
+
+        <input asp-for="@Model.Date" class="form-control search" id="datepicker" />
+        <input class="form-control search" value="Szukaj" id="szukaj" />
+
+        <div style="clear:both;"></div>
+        
+        <ul id="litery" class="tekstyLitery myFilters" style="">
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li>
+            <li>E</li>
+            <li>F</li>
+            <li>G</li>
+            <li>H</li>
+            <li>I</li>
+            <li>J</li>
+            <li>K</li>
+            <li>L</li>
+            <li>Ł</li>
+            <li>M</li>
+            <li>N</li>
+            <li>O</li>
+            <li>P</li>
+            <li>R</li>
+            <li>S</li>
+            <li>T</li>
+            <li>U</li>
+            <li>W</li>
+            <li>X</li>
+            <li>Y</li>
+            <li>Z</li>
+        </ul>
+        <div style="clear:both;"></div>
+        <div class="col-md-12" id="albumy">
+            @foreach (var last in Model.teksty)
+            {
+                <div class="col-md-4" data-wykonawca="@last.Author" data-gatunek="@last.Genre" data-rodzaj="@last.Type" data-publikacji="@last.Year">
+                    <a asp-controller="Tekst" asp-action="Details" asp-route-id="@last.ID" style="color:#000 !important;"> <h4>@Html.DisplayFor(m => last.Name) / @Html.DisplayFor(m => last.Author)</h4> </a>
+</div>
+                        }
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,11 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "fullcalendar": "v4.0.0-alpha"
+  },
+  "resolutions": {
+    "jquery": "3.3.1"
+  }
+}

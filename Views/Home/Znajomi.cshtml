@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SocialPortal.Models.ApplicationUser>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<div class="container">
+    <div class="row">
+        <h2>Znajomi</h2>
+        <div class="col-md-10">
+            <div class="col-md-12" id="ostatnioDodane">
+                @if (Model != null)
+                {
+                @foreach (var last in Model)
+                {
+                   
+                    <div class="col-md-3 ">
+
+                       
+@if (@last.Photo != null)
+                    {
+                        String @imgSrc = @last.Photo.Split(';')[0];
+                        <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                            }
+                        <a asp-controller="Home" asp-action="DetailsUser" asp-route-id="@last.Id"><h3>@Html.DisplayFor(m => last.UserName)</h3></a>
+                    </div>
+                           
+                            }
+                            }
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

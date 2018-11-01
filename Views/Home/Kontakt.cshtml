@@ -1,0 +1,29 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="col-md-8 col-md-offset-2">
+    <div class="form-horizontal">
+        <form id="utworForm" asp-controller="Home" asp-action="Kontakt">
+            <div class="form-group">
+                <label class="col-md-2 control-label" style="margin:0px;">Podaj email</label>
+                <div class="col-md-10">
+                    <input class="form-control MakeWidth" name="email"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" style="margin:0px;">Wpisz wiadomość</label>
+                <div class="col-md-10">
+                    <textarea class="form-control MakeWidth" name="body"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-primary" value="Wyślij Email" />
+                </div>
+            </div>
+            </form>
+</div>
+    </div>
+<div class="clearfix"></div>

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<SocialPortal.Models.Album>
+
+                      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+                      <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+
+                      <div class="container">
+                
+                          <div class="row">
+                 <h2>Albumy dodane przez Ciebie</h2>
+                              <div id="albumy">
+                                  @foreach (var last in Model)
+            {
+                                      <div class="col-md-2" data-wykonawca="@last.Author" data-gatunek="@last.Genre" data-rodzaj="@last.Type" data-publikacji="@last.PublicDate">
+                                          @{String @imgSrc = @last.Photos.Split(';')[0];}
+                                          <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                                          <a asp-controller="Album" asp-action="Details" asp-route-id="@last.ID"> <h3>@Html.DisplayFor(m => last.Name)</h3></a>
+                                      </div>
+                        }
+                              </div>
+                          </div>
+
+                      </div>

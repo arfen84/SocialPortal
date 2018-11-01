@@ -1,0 +1,190 @@
+﻿@model SocialPortal.Models.ProfilViewModel
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<style>
+    .container {
+        width: 100%;
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+
+    .navbar, .nav {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+</style>
+
+<div class="container-fluid">
+    @{
+        if (Model.user != null && Model.user.PhotoWtle != null && Model.user.PhotoWtle != String.Empty)
+        {
+            String @imgSrc1 = Model.user.PhotoWtle.Split(';')[0];
+
+
+            <div class="row" style="height:200px;margin:0px !important;margin-top:20px !important;padding:0px !important;background-repeat: no-repeat;
+    background-size: cover;margin-bottom:0px;background-image:url(@Url.Content(String.Format("~/uploads/img/{0}",imgSrc1  )));">
+                <div class="col-md-12" id="zdjecie" style="height:200px;margin-bottom:30px;">
+                    <div class="col-md-3" style="margin-bottom:0px;margin-top:120px;">
+
+                        @{
+                            if (Model.user != null && Model.user.Photo != null && Model.user.Photo != String.Empty)
+                            {
+                                String @imgSrc2 = Model.user.Photo.Split(';')[0];
+                                <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc2  ))" class="img-circle" style="width:150px;height:150px; border:2px solid #ffffff;" />
+                            }
+                        }
+
+
+                    </div>
+                    <br /><br /><br /><br /><br /><br />
+                    <h2 style="color:#fff !important;"> @Html.DisplayFor(m => m.user.UserName)</h2>
+
+                </div>
+
+            </div>    }
+
+    }
+   
+            <div class="clearfix"></div>
+@if (Model.user == null || Model.user.PhotoWtle == null )
+{ <div style="margin-top:70px;"></div>}
+            <div class="pull-right" style="color:#fff !important;   height:50px;"> 
+
+                <a asp-controller="Home" asp-action="DodajZnajomego" asp-route-id="@Model.user.Id" style="padding:10px;background-color:#5BAEC9;border-radius:15px;color:#fff !important;margin-right:50px;">Obserwuj</a>
+
+            </div>             
+                        
+
+    <div style="clear:both;"></div>
+    <div class="row" id="utwory">
+        <h3>Utwory</h3>
+        @foreach (var last in Model.utwory)
+            {
+            <div class="col-md-3">
+
+                @{String @YouTubeFilmID = @last.URL.Replace("https://", "").Replace("http://", "").Replace("www.youtube.com/watch?v=", "").Replace("youtu.be/", "");
+                    String @YoutubeSRC = String.Format("https://www.youtube.com/embed/{0}", @YouTubeFilmID);
+                }
+
+                <iframe src="@YoutubeSRC" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;"></iframe>
+                <a asp-controller="Utwor" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+            </div>
+                    }
+
+    </div>
+    <div style="clear:both;"></div>
+    <hr />
+    <div class="row" id="wykonawcy">
+        <h3>Wykonawcy</h3>
+        @foreach (var last in Model.wykonawcy)
+            {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photo.Split(';')[0];}
+                <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                <a asp-controller="@last.Controller" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+            </div>
+                    }
+    </div>
+    <div style="clear:both;"></div>
+    <hr />
+    <div class="row" id="wydarzenia">
+        <h3>Wydarzenia</h3>
+        @foreach (var last in Model.wydarzenia)
+            {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photos.Split(';')[0];}
+                <a asp-controller="Event" asp-action="Details" asp-route-id="@last.ID">
+                    <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                    <h3>@Html.DisplayFor(m => last.Name)</h3>
+                </a>
+            </div>
+                    }
+    </div>
+    <div style="clear:both;"></div>
+    <hr />
+</div>
+
+<div class="col-md-12">
+    <div class="row" id="relacje">
+        <h3>Relacje</h3>
+        @foreach (var last in Model.relacje)
+            {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photos.Split(';')[0];}
+                <a asp-controller="Relacja" asp-action="Details" asp-route-id="@last.ID">
+                    <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                    <h3>@Html.DisplayFor(m => last.Name)</h3>
+                </a>
+            </div>
+                    }
+    </div>
+    <div style="clear:both;"></div>
+    <hr />
+    <div class="row" id="teksty">
+        <h3>Teksty</h3>
+        @if (Model.teksty != null)
+        {
+            @foreach (var last in Model.teksty)
+                {
+                <div class="col-md-4" data-wykonawca="@last.Author" data-gatunek="@last.Genre" data-rodzaj="@last.Type" data-publikacji="@last.Year">
+                    <a asp-controller="Tekst" asp-action="Details" asp-route-id="@last.ID" style="color:#000 !important;"> <h4>@Html.DisplayFor(m => last.Name) / @Html.DisplayFor(m => last.Author)</h4> </a>
+                </div>
+            }
+        }
+    </div>
+    <div style="clear:both;"></div>
+    <hr />
+    <div class="row" id="albumy">
+        <h3>Albumy</h3>
+        @foreach (var last in Model.albumy)
+            {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photos.Split(';')[0];}
+                <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                <a asp-controller="Album" asp-action="Details" asp-route-id="@last.ID"><h3>@Html.DisplayFor(m => last.Name)</h3></a>
+            </div>
+                    }
+    </div>
+    <div style="clear:both;"></div>
+    <hr />
+
+</div>
+<div class="row">
+    <h3>Treści dodane przez Ciebie</h3>
+
+    <ul class="nav nav-tabs" style="display:table;    margin:0px auto 0px auto;">
+        <li>
+            <a asp-controller="Home" asp-action="UtworyUser"><img src="/images/utwory.png" alt="utwory" /> <h3>Utwory (@if (@Model.utworyDodane != null && @Model.utworyDodane.Count > 0)
+            { @Model.utworyDodane.Count;
+            })</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="WykonawcyUser"><img src="/images/wykonawcy.png" alt="wykonawcy" /> <h3>Wykonawcy (@if (@Model.wykonawcyDodane != null && @Model.wykonawcyDodane.Count > 0)
+            {@Model.wykonawcyDodane.Count;
+            })</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="WydarzeniaUser"><img src="/images/wydarzenia.png" alt="wydarzenia" /> <h3>Wydarzenia (@if (@Model.wydarzeniaDodane != null && @Model.wydarzeniaDodane.Count > 0)
+            {@Model.wydarzeniaDodane.Count;
+            })</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="TekstyUser"><img src="/images/teksty.png" alt="teksty" /> <h3>Teksty (@if (@Model.tekstyDodane != null && @Model.tekstyDodane.Count > 0)
+            {@Model.tekstyDodane.Count;
+            })</h3></a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="AlbumyUser"><img src="/images/albumy.png" alt="albumy" /> <h3>Albumy (@if (@Model.albumyDodane != null && @Model.albumyDodane.Count > 0)
+            {@Model.albumyDodane.Count;
+            })</h3></a>
+        </li>
+    </ul>
+
+</div>
+</div>
+</div>

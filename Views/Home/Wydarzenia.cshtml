@@ -1,0 +1,144 @@
+﻿@model SocialPortal.Models.WydarzenieViewModel
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//momentjs.com/downloads/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+<script>
+
+  
+   $(document).ready(function () {
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultView: 'month',
+            editable: false,
+            selectable: true,
+
+            events: [
+                {
+                title: 'All Day Event',
+                start: '2018-09-01'
+                },
+
+             @if (Model.Wydarzenia != null) {
+
+                 @foreach (var cos in Model.Wydarzenia) {
+                <text>
+                {
+                    title: '@cos.Name',
+                    start: '@cos.Date',
+                    url: '/Event/Details/@cos.ID'
+                },
+                 </text>
+
+
+                }
+            }
+
+            ]
+        });
+
+    });
+
+</script>
+
+<div class="container">
+    <h2>Nadchodzące wydarzenia</h2>
+    <div class="row" id="ostatnioDodane">
+
+        @foreach (var last in Model.nadchodząceWydarzenia)
+        {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photos.Split(';')[0];}
+                <a asp-controller="Event" asp-action="Details" asp-route-id="@last.ID">
+                    <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                    <h3>@Html.DisplayFor(m => last.Name)</h3>
+                </a>
+            </div>
+                    }
+
+    </div><div style="float:right;">
+        <a asp-controller="Home" asp-action="WydarzeniaWiecej">Więcej...</a>
+    </div>
+    <hr />
+    <h2>Poprzednie wydarzenia</h2>
+    <div class="row" id="najpopularniejsze">
+
+        @foreach (var last in Model.poprzednieWydarzenia)
+        {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photos.Split(';')[0];}
+                <a asp-controller="Event" asp-action="Details" asp-route-id="@last.ID">
+                    <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                    <h3>@Html.DisplayFor(m => last.Name)</h3>
+                </a>
+            </div>
+                    }
+    </div><div style="float:right;">
+        <a asp-controller="Home" asp-action="WydarzeniaWiecej">Więcej...</a>
+    </div>
+
+    <hr />
+    <h2>Relacje z wydarzeń</h2>
+    <div class="row" id="najpopularniejsze">
+
+        @foreach (var last in Model.relacjeZWydarzen)
+        {
+            <div class="col-md-2">
+
+                @{String @imgSrc = @last.Photos.Split(';')[0];}
+                <a asp-controller="Relacja" asp-action="Details" asp-route-id="@last.ID">
+                    <img src="@Url.Content(String.Format("~/uploads/img/{0}",imgSrc  ))" class="img-responsive" />
+                    <h3>@Html.DisplayFor(m => last.Name)</h3>
+                </a>
+            </div>
+                    }
+    </div>
+<div style="float:right;">
+    <a asp-controller="Home" asp-action="RelacjeWiecej">Więcej...</a>
+</div>
+    <hr />
+    <div class="row">
+        <p style="float:left;">Sortuj według : </p>
+        @Html.DropDownListFor(m => m.wykonawcy,
+new SelectList(Model.wykonawcy, Model.wykonawcy),
+   new { @class = "form-control search", id = "wykonawcy" })
+
+        @Html.DropDownListFor(m => m.miejsce,
+new SelectList(Model.miejsce, Model.miejsce),
+   new { @class = "form-control search", id = "miejsce" })
+
+       
+
+
+        <div style="clear:both;"></div>
+     
+        @*<div style="clear:both;"></div>
+        <div id="albumy">
+            @if (Model.Wydarzenia != null)
+            {
+            @foreach (var last in Model.Wydarzenia)
+            {
+                <div class="col-md-2" data-wykonawca="@last.Name">
+                    @{String @imgSrc = @last.Photos.Split(';')[0];}
+                    <a asp-controller="Event" asp-action="Details" asp-route-id="@last.ID">
+                        <img src="@Url.Content(String.Format("~/uploads/img/{0}", imgSrc))" class="img-responsive" />
+                        <h3>@Html.DisplayFor(m => last.Name)</h3>
+                    </a>
+                </div>
+                        }
+                        }*@
+            <div id='calendar'></div>
+        </div>
+    </div>
+
+</div>

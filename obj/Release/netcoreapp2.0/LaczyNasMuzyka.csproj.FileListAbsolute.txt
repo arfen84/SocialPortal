@@ -1,0 +1,12 @@
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\bin\Release\netcoreapp2.0\LaczyNasMuzyka.deps.json
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\bin\Release\netcoreapp2.0\LaczyNasMuzyka.runtimeconfig.json
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\bin\Release\netcoreapp2.0\LaczyNasMuzyka.runtimeconfig.dev.json
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\bin\Release\netcoreapp2.0\LaczyNasMuzyka.dll
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\bin\Release\netcoreapp2.0\LaczyNasMuzyka.pdb
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\obj\Release\netcoreapp2.0\LaczyNasMuzyka.csprojResolveAssemblyReference.cache
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\obj\Release\netcoreapp2.0\LaczyNasMuzyka.csproj.CoreCompileInputs.cache
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\obj\Release\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\obj\Release\netcoreapp2.0\LaczyNasMuzyka.AssemblyInfoInputs.cache
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\obj\Release\netcoreapp2.0\LaczyNasMuzyka.AssemblyInfo.cs
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\obj\Release\netcoreapp2.0\LaczyNasMuzyka.dll
+C:\Users\pc\source\repos\LaczyNasMuzyka\LaczyNasMuzyka\obj\Release\netcoreapp2.0\LaczyNasMuzyka.pdb

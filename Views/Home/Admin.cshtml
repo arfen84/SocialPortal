@@ -1,0 +1,212 @@
+﻿@model SocialPortal.Models.AdminViewModel
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<a asp-action="AdminNotVerified">Zatwierdź dane</a><br />
+<a asp-action="AdminRoles">Zarządzaj rolami użytkowników</a><br />
+<a asp-action="Slider">Zarządzaj sliderem</a>
+<h2>Utwory</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.utwory.FirstOrDefault().Name)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.utwory)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+
+                <td>
+                    <a asp-controller="Utwor" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-controller="Utwor" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Zespoly</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.zespoly.FirstOrDefault().Name)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.zespoly)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+
+                <td>
+                    <a asp-controller="Zespol" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-controller="Zespol" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Autorzy</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.autorzy.FirstOrDefault().Name)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.autorzy)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+
+                <td>
+                    <a asp-controller="Autor" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-controller="Autor" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Relacje</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.relacje.FirstOrDefault().Name)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.relacje)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+
+                <td>
+                    <a asp-controller="Relacja" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-controller="Relacja" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Wydarzenia</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.eventy.FirstOrDefault().Name)
+            </th>
+
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.eventy)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+
+                <td>
+                    <a asp-controller="Event" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-controller="Event" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Teksty</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.teksty.FirstOrDefault().Name)
+            </th>
+
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.teksty)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+
+                <td>
+                    <a asp-controller="Tekst" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-controller="Tekst" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+    <h2>Albumy</h2>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.albumy.FirstOrDefault().Name)
+                </th>
+              
+              
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.albumy) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+          
+           
+            <td>
+                <a asp-controller="Album" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-controller="Album" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
